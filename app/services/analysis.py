@@ -1510,7 +1510,7 @@ def evaluate_forecast_models(
         else:
 
             final_rf = RandomForestRegressor(
-                n_estimators=300,
+                n_estimators=100,
                 max_depth=8,
                 min_samples_leaf=2,
                 random_state=42,
