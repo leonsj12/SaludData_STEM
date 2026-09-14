@@ -123,9 +123,27 @@ def _repair_text_encoding(value: Any) -> Any:
     return text.strip()
 
 
+def _repair_text_series(series: pd.Series) -> pd.Series:
+    """
+    Repara texto de forma vectorizada para evitar recorrer fila por fila.
+    """
+    result = series.astype("string").str.strip()
+
+    result = result.mask(result.eq(""), pd.NA)
+
+    for bad, good in MOJIBAKE_REPLACEMENTS.items():
+        result = result.str.replace(
+            bad,
+            good,
+            regex=False,
+        )
+
+    return result
+
+
 def _normalize_text_columns(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Normaliza columnas de texto sin alterar columnas numéricas.
+    Normaliza columnas de texto usando operaciones vectorizadas de pandas.
     """
     result = df.copy()
 
@@ -134,8 +152,8 @@ def _normalize_text_columns(df: pd.DataFrame) -> pd.DataFrame:
     ).columns
 
     for column in text_columns:
-        result[column] = result[column].map(
-            _repair_text_encoding
+        result[column] = _repair_text_series(
+            result[column]
         )
 
     return result
@@ -326,30 +344,14 @@ def prepare_health_data(
         # Cada registro representa una defunción.
         result["value"] = 1.0
 
-        if "sex" in result.columns:
-            result["sex"] = result["sex"].map(
-                _repair_text_encoding
-            )
 
         if "locality" in result.columns:
             result["locality"] = result["locality"].map(
                 _normalize_locality
             )
 
-        if "age_group" in result.columns:
-            result["age_group"] = result["age_group"].map(
-                _repair_text_encoding
-            )
 
-        if "cause_group" in result.columns:
-            result["cause_group"] = result["cause_group"].map(
-                _repair_text_encoding
-            )
 
-        if "cause" in result.columns:
-            result["cause"] = result["cause"].map(
-                _repair_text_encoding
-            )
 
         result["date"] = _build_month_date(
             result["year"],
@@ -396,25 +398,13 @@ def prepare_health_data(
                 result["value"]
             )
 
-        if "sex" in result.columns:
-            result["sex"] = result["sex"].map(
-                _repair_text_encoding
-            )
 
         if "locality" in result.columns:
             result["locality"] = result["locality"].map(
                 _normalize_locality
             )
 
-        if "age_group" in result.columns:
-            result["age_group"] = result["age_group"].map(
-                _repair_text_encoding
-            )
 
-        if "cause" in result.columns:
-            result["cause"] = result["cause"].map(
-                _repair_text_encoding
-            )
 
         # Algunos conjuntos generales no poseen MES.
         # No se fuerza una fecha mensual inexistente.
@@ -1432,7 +1422,7 @@ def evaluate_forecast_models(
     y_test = test["y"]
 
     rf = RandomForestRegressor(
-        n_estimators=300,
+        n_estimators=100,
         max_depth=8,
         min_samples_leaf=2,
         random_state=42,
