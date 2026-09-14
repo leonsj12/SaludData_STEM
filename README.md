@@ -1,29 +1,31 @@
 <div align="center">
 
+<img src="assets/banner-saluddata-stem.png" alt="SaludData STEM — Explorador interactivo de datos abiertos de salud pública" width="100%">
+
+<br><br>
+
 # SaludData STEM
 
 ### Explorador interactivo de datos abiertos de salud pública
+
+Herramienta web para consultar, validar, transformar, analizar y visualizar información abierta relacionada con salud pública mediante técnicas de ciencia de datos.
+
+<br>
 
 **Python · Flask · Pandas · Scikit-learn · Plotly · CKAN**
 
 <br>
 
-<!-- =====================================================
-     BANNER PRINCIPAL
-     Reemplace la ruta por la imagen definitiva del proyecto
-====================================================== -->
+[![Estado](https://img.shields.io/badge/Estado-MVP%20funcional-16a34a?style=for-the-badge)](https://github.com/leonsj12/SaludData_STEM)
+[![Versión](https://img.shields.io/badge/Versión-2.3-2563eb?style=for-the-badge)](https://github.com/leonsj12/SaludData_STEM)
+[![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge\&logo=python\&logoColor=white)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Flask-Web%20App-000000?style=for-the-badge\&logo=flask\&logoColor=white)](https://flask.palletsprojects.com/)
+[![Licencia](https://img.shields.io/badge/Licencia-Académica-64748b?style=for-the-badge)](#licencia)
 
-<img src="docs/assets/banner-saluddata-stem.png" alt="Banner de SaludData STEM" width="100%">
-
-<br>
-
-[![Estado](https://img.shields.io/badge/estado-MVP%20funcional-16a34a?style=for-the-badge)](https://github.com/)
-[![Versión](https://img.shields.io/badge/versi%C3%B3n-2.3-2563eb?style=for-the-badge)](https://github.com/)
-[![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![Flask](https://img.shields.io/badge/Flask-Web%20App-000000?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
-[![Licencia](https://img.shields.io/badge/licencia-acad%C3%A9mica-informational?style=for-the-badge)](#licencia)
+</div>
 
 <br>
+
 
 > **Convertir datos abiertos en información comprensible, reproducible y responsable.**
 
