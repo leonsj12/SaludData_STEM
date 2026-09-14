@@ -35,7 +35,6 @@ Herramienta web desarrollada para consultar, validar, transformar, analizar y vi
 
 </div>
 
----
 
 ## Índice
 
@@ -60,7 +59,6 @@ Herramienta web desarrollada para consultar, validar, transformar, analizar y vi
 - [Colaboración](#colaboración)
 - [Licencia](#licencia)
 
----
 
 ## Descripción
 
@@ -70,7 +68,6 @@ La aplicación integra un flujo de trabajo para consultar, validar, transformar,
 
 El proyecto busca transformar registros públicos en información comprensible y, al mismo tiempo, utilizar datos reales como medio para fortalecer experiencias educativas relacionadas con ciencia, tecnología, ingeniería y matemáticas (STEM), con especial interés en la participación de jóvenes mujeres.
 
----
 
 ## Propósito
 
@@ -100,7 +97,6 @@ Interpretación
 
 El propósito es facilitar la exploración de información pública desde una perspectiva técnica, educativa y responsable.
 
----
 
 ## Características principales
 
@@ -138,7 +134,6 @@ Cuando las características de la fuente lo permiten, se evalúan experimentalme
 
 Los resultados de esta etapa tienen carácter académico y exploratorio.
 
----
 
 ## Fuentes de datos
 
@@ -150,7 +145,6 @@ La propuesta contempla el uso de plataformas y servicios de datos abiertos, incl
 
 La interpretación de los resultados debe considerar la calidad, cobertura temporal, granularidad, valores faltantes y condiciones de producción de cada fuente.
 
----
 
 ## Flujo de trabajo
 
@@ -184,7 +178,6 @@ La interpretación de los resultados debe considerar la calidad, cobertura tempo
 
 </div>
 
----
 
 ## Arquitectura del sistema
 
@@ -224,7 +217,6 @@ La aplicación está desarrollada alrededor de Python y Flask e integra componen
                  └──────────────────┘
 ```
 
----
 
 ## Tecnologías utilizadas
 
@@ -246,8 +238,6 @@ La aplicación está desarrollada alrededor de Python y Flask e integra componen
   <img src="https://skillicons.dev/icons?i=python,flask,pandas,sklearn,git,github&theme=light" alt="Stack tecnológico">
 </p>
 
----
-
 ## Estructura del proyecto
 
 La organización exacta del repositorio debe mantenerse alineada con los archivos actualmente presentes en GitHub.
@@ -265,7 +255,6 @@ SaludData_STEM/
 
 Los demás componentes deben reflejar la estructura real del repositorio y no se enumeran aquí para evitar documentar archivos que no formen parte de la versión publicada.
 
----
 
 ## Instalación
 
@@ -298,7 +287,6 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
----
 
 ## Ejecución
 
@@ -312,7 +300,6 @@ La aplicación desplegada puede consultarse en:
 
 **[SaludData STEM — Aplicación en línea](https://saluddata-stem.onrender.com)**
 
----
 
 ## Dashboard
 
@@ -334,7 +321,6 @@ Datos
   └── Evaluación experimental
 ```
 
----
 
 ## Análisis disponibles
 
@@ -360,7 +346,6 @@ Una desviación estadística no implica por sí misma una causa clínica o epide
 
 Representación gráfica de los resultados para facilitar la exploración y comprensión de los datos.
 
----
 
 ## Evaluación experimental de modelos
 
@@ -388,7 +373,6 @@ Interpretación
 
 Los resultados tienen carácter experimental y académico. No constituyen diagnósticos, recomendaciones clínicas ni pronósticos oficiales de salud pública.
 
----
 
 ## Criterios metodológicos
 
@@ -415,7 +399,6 @@ Una asociación estadística no constituye evidencia suficiente de causalidad.
 
 SaludData STEM es una herramienta académica, educativa y exploratoria. No sustituye sistemas oficiales de información, procesos de vigilancia epidemiológica ni valoración médica profesional.
 
----
 
 ## Limitaciones
 
@@ -433,7 +416,6 @@ Entre las principales limitaciones se encuentran:
 
 Por estas razones, los resultados deben interpretarse como evidencia exploratoria derivada de los datos disponibles.
 
----
 
 ## Reproducibilidad
 
@@ -457,7 +439,6 @@ Parámetros
 Resultados
 ```
 
----
 
 ## Proyección académica
 
@@ -477,7 +458,6 @@ El proyecto puede continuar evolucionando mediante nuevas fuentes, indicadores, 
 
 Uno de sus propósitos es utilizar información pública como punto de partida para aprender, investigar, formular preguntas y construir conocimiento.
 
----
 
 ## Referencias
 
@@ -498,19 +478,18 @@ Uno de sus propósitos es utilizar información pública como punto de partida p
 
 Las referencias específicas de cada conjunto de datos deben conservarse de acuerdo con las condiciones establecidas por sus respectivas fuentes.
 
----
 
 ## Colaboración
 
-SaludData STEM es un proyecto académico y tecnológico susceptible de evolución mediante revisión, colaboración y aportes.
+**SaludData STEM** es un proyecto académico y tecnológico realizado por **Leon, S.**, con la colaboración de **[Leon, E.](https://github.com/eduardoleon9010?tab=repositories)** en actividades de revisión, aportes y fortalecimiento del proyecto.
 
 ### Leon, E.
+
+**Colaborador**
 
 <a href="https://github.com/eduardoleon9010?tab=repositories">
 <img src="https://img.shields.io/badge/Leon%2C%20E.-Perfil%20y%20repositorios-181717?style=for-the-badge&logo=github&logoColor=white" alt="Leon, E. — Perfil de GitHub">
 </a>
-
----
 
 ## Licencia
 
@@ -520,7 +499,6 @@ El uso, modificación o distribución del código debe respetar las condiciones 
 
 Los datos utilizados pertenecen a sus respectivas fuentes de origen y deben utilizarse de acuerdo con las condiciones establecidas por dichas fuentes.
 
----
 
 <div align="center">
 
@@ -532,12 +510,17 @@ Los datos utilizados pertenecen a sus respectivas fuentes de origen y deben util
 
 <br>
 
-[Repositorio](https://github.com/leonsj12/SaludData_STEM) · [Aplicación](https://saluddata-stem.onrender.com) · [Leon, E.](https://github.com/eduardoleon9010?tab=repositories)
+[Repositorio](https://github.com/leonsj12/SaludData_STEM) · [Aplicación](https://saluddata-stem.onrender.com)
 
 <br><br>
+
+**Autor:** Leon, S.
+
+**Colaborador:** [Leon, E.](https://github.com/eduardoleon9010?tab=repositories)
+
+<br>
 
 **V2.3**
 
 </div>
-
 
