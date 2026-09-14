@@ -15,14 +15,16 @@ Herramienta web para consultar, validar, transformar, analizar y visualizar info
 **Python · Flask · Pandas · Scikit-learn · Plotly · CKAN**
 
 <br>
+<div align="center">
 
-[![Estado](https://img.shields.io/badge/Estado-MVP%20funcional-16a34a?style=for-the-badge)](https://github.com/leonsj12/SaludData_STEM)
+[![Estado](https://img.shields.io/badge/Estado-MVP%20funcional-16a34a?style=for-the-badge)](https://saluddata-stem.onrender.com/dashboard)
 [![Versión](https://img.shields.io/badge/Versión-2.3-2563eb?style=for-the-badge)](https://github.com/leonsj12/SaludData_STEM)
-[![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge\&logo=python\&logoColor=white)](https://www.python.org/)
-[![Flask](https://img.shields.io/badge/Flask-Web%20App-000000?style=for-the-badge\&logo=flask\&logoColor=white)](https://flask.palletsprojects.com/)
+[![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Flask-Web%20App-000000?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
 [![Licencia](https://img.shields.io/badge/Licencia-Académica-64748b?style=for-the-badge)](#licencia)
 
 </div>
+
 
 <br>
 
