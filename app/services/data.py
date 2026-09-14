@@ -134,19 +134,8 @@ def _read_csv(content: bytes) -> pd.DataFrame:
                 io.BytesIO(content),
                 encoding=encoding,
                 sep=";",
-                low_memory=False,
+                low_memory=True,
             )
-
-            text_columns = df.select_dtypes(
-                include=["object", "string"]
-            ).columns
-
-            for column in text_columns:
-
-                df[column] = (
-                    df[column]
-                    .map(_repair_mojibake)
-                )
 
             return df
 
@@ -201,7 +190,7 @@ def load_dataset(
             "pero no contiene registros."
         )
 
-    _CACHE[fuente] = raw_df.copy()
+    _CACHE[fuente] = raw_df
 
     return raw_df.copy()
 

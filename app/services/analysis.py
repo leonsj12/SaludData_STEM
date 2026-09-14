@@ -125,38 +125,34 @@ def _repair_text_encoding(value: Any) -> Any:
 
 def _repair_text_series(series: pd.Series) -> pd.Series:
     """
-    Repara texto de forma vectorizada para evitar recorrer fila por fila.
+    Repara texto minimizando copias temporales de pandas.
+    Se transforma cada valor una sola vez.
     """
-    result = series.astype("string").str.strip()
-
-    result = result.mask(result.eq(""), pd.NA)
-
-    for bad, good in MOJIBAKE_REPLACEMENTS.items():
-        result = result.str.replace(
-            bad,
-            good,
-            regex=False,
-        )
-
-    return result
+    return series.map(_repair_text_encoding)
 
 
 def _normalize_text_columns(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Normaliza columnas de texto usando operaciones vectorizadas de pandas.
+    Normaliza únicamente las columnas de texto relevantes para el análisis.
+    Evita copiar y transformar columnas innecesarias.
     """
-    result = df.copy()
-
-    text_columns = result.select_dtypes(
-        include=["object", "string"]
-    ).columns
+    text_columns = [
+        column
+        for column in [
+            "SEXO",
+            "LOCALIDAD",
+            "EDAD_QUINQUENAL",
+            "CIE10_AGRUPADA",
+            "CIE10_BASICA",
+            "DESCRIPCION LISTA 105",
+        ]
+        if column in df.columns
+    ]
 
     for column in text_columns:
-        result[column] = _repair_text_series(
-            result[column]
-        )
+        df[column] = _repair_text_series(df[column])
 
-    return result
+    return df
 
 
 # ============================================================
