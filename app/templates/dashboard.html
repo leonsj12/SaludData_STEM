@@ -1,0 +1,1645 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | SaludData STEM{% endblock %}
+
+{% block content %}
+
+<!-- =====================================================
+     ENCABEZADO
+====================================================== -->
+
+<section class="page-head page-head-flex">
+
+
+<div>
+    <p class="eyebrow">
+        EXPLORADOR INTERACTIVO · V2.3
+    </p>
+
+    <h1>
+        {{ source.label }}
+    </h1>
+
+    <p class="muted">
+        Análisis estadístico exploratorio de datos abiertos.
+        Los resultados permiten describir patrones, distribución
+        y comportamiento temporal de los registros disponibles.
+        No constituyen una herramienta clínica ni una garantía predictiva.
+    </p>
+</div>
+
+<div>
+    <span class="badge
+        {% if granularity == 'monthly' %}
+            badge-monthly
+        {% else %}
+            badge-annual
+        {% endif %}
+    ">
+        Análisis {{ granularity_label }}
+    </span>
+</div>
+
+
+</section>
+
+<!-- =====================================================
+     FILTROS
+====================================================== -->
+
+<section class="card">
+
+
+<div class="section-head">
+
+    <div>
+        <h2>Filtros de análisis</h2>
+
+        <p class="muted">
+            Seleccione la fuente y, cuando corresponda,
+            delimite el periodo, sexo o localidad de interés.
+        </p>
+    </div>
+
+</div>
+
+<form
+    method="get"
+    action="{{ url_for('main.dashboard') }}"
+    class="filters filters-v22"
+>
+
+    <!-- Fuente -->
+
+    <div>
+        <label for="source">
+            Fuente
+        </label>
+
+        <select
+            id="source"
+            name="fuente"
+        >
+
+            {% for key, item in sources.items() %}
+
+                <option
+                    value="{{ key }}"
+                    {% if key == source_key %}
+                        selected
+                    {% endif %}
+                >
+                    {{ item.label }}
+                </option>
+
+            {% endfor %}
+
+        </select>
+    </div>
+
+
+    <!-- Año inicial -->
+
+    <div>
+        <label for="year_from">
+            Desde
+        </label>
+
+        <select
+            id="year_from"
+            name="desde"
+        >
+
+            <option value="">
+                Todos
+            </option>
+
+            {% for year in all_years %}
+
+                <option
+                    value="{{ year }}"
+                    {% if year_from == year %}
+                        selected
+                    {% endif %}
+                >
+                    {{ year }}
+                </option>
+
+            {% endfor %}
+
+        </select>
+    </div>
+
+
+    <!-- Año final -->
+
+    <div>
+        <label for="year_to">
+            Hasta
+        </label>
+
+        <select
+            id="year_to"
+            name="hasta"
+        >
+
+            <option value="">
+                Todos
+            </option>
+
+            {% for year in all_years %}
+
+                <option
+                    value="{{ year }}"
+                    {% if year_to == year %}
+                        selected
+                    {% endif %}
+                >
+                    {{ year }}
+                </option>
+
+            {% endfor %}
+
+        </select>
+    </div>
+
+
+    <!-- Sexo -->
+
+    <div>
+        <label for="sex">
+            Sexo
+        </label>
+
+        <select
+            id="sex"
+            name="sexo"
+            multiple
+        >
+
+            {% for value in sex_values %}
+
+                <option
+                    value="{{ value }}"
+                    {% if value in selected_sex %}
+                        selected
+                    {% endif %}
+                >
+                    {{ value }}
+                </option>
+
+            {% endfor %}
+
+        </select>
+    </div>
+
+
+    <!-- Localidad -->
+
+    <div>
+        <label for="locality">
+            Localidad
+        </label>
+
+        <select
+            id="locality"
+            name="localidad"
+            multiple
+        >
+
+            {% for value in loc_values %}
+
+                <option
+                    value="{{ value }}"
+                    {% if value in selected_loc %}
+                        selected
+                    {% endif %}
+                >
+                    {{ value }}
+                </option>
+
+            {% endfor %}
+
+        </select>
+    </div>
+
+
+    <!-- Acciones -->
+
+    <div class="filter-actions">
+
+        <button
+            type="submit"
+            class="button"
+        >
+            Actualizar
+        </button>
+
+        <a
+            href="{{ url_for('main.dashboard', fuente=source_key) }}"
+            class="button button-light"
+        >
+            Limpiar
+        </a>
+
+    </div>
+
+</form>
+
+<p class="filter-tip">
+    En Sexo y Localidad puede seleccionar varias opciones con
+    Ctrl/Cmd + clic.
+</p>
+
+
+</section>
+
+<!-- =====================================================
+     ESTADO DE FILTROS
+====================================================== -->
+
+{% if filters_active %}
+
+<section class="notice notice-info">
+
+<p>
+    <strong>Subconjunto analizado:</strong>
+    {{ filter_summary }}
+</p>
+
+
+</section>
+
+{% endif %}
+
+<!-- =====================================================
+     INDICADORES PRINCIPALES
+====================================================== -->
+
+<section class="grid four metrics-v22">
+
+
+<div class="metric">
+
+    <small>
+        Registros
+    </small>
+
+    <strong>
+        {{ "{:,.0f}".format(records) }}
+    </strong>
+
+    <span>
+        Observaciones disponibles después de aplicar los filtros.
+    </span>
+
+</div>
+
+
+<div class="metric">
+
+    <small>
+        Promedio por periodo
+    </small>
+
+    <strong>
+        {{ "%.1f"|format(avg_value) }}
+    </strong>
+
+    <span>
+        Promedio de registros por periodo observado.
+    </span>
+
+</div>
+
+
+<div class="metric">
+
+    <small>
+        Máximo observado
+    </small>
+
+    <strong>
+        {{ "{:,.0f}".format(peak_value) }}
+    </strong>
+
+    <span>
+        {{ peak_label }}
+    </span>
+
+</div>
+
+
+<div class="metric">
+
+    <small>
+        Último periodo observado
+    </small>
+
+    <strong>
+        {{ "{:,.0f}".format(latest_value) }}
+    </strong>
+
+    <span>
+        {{ latest_label }}
+
+        {% if latest_delta is not none %}
+            · {{ "%.1f"|format(latest_delta) }}%
+        {% endif %}
+    </span>
+
+</div>
+
+
+</section>
+
+<!-- =====================================================
+     CALIDAD Y COBERTURA
+====================================================== -->
+
+<section class="card">
+
+
+<div class="section-head">
+
+    <div>
+
+        <h2>
+            Calidad y cobertura de los datos
+        </h2>
+
+        <p class="muted">
+            Resumen descriptivo del conjunto utilizado en el análisis.
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="coverage-grid">
+
+    <div>
+
+        <strong>
+            {{ "{:,.0f}".format(quality.records) }}
+        </strong>
+
+        <span>
+            Registros analizados
+        </span>
+
+    </div>
+
+
+    <div>
+
+        <strong>
+            {{ quality.columns }}
+        </strong>
+
+        <span>
+            Variables
+        </span>
+
+    </div>
+
+
+    <div>
+
+        <strong>
+            {{ "{:,.0f}".format(quality.missing) }}
+        </strong>
+
+        <span>
+            Faltantes en variables analíticas
+        </span>
+
+    </div>
+
+
+    <div>
+
+        <strong>
+            {{ quality.missing_pct }}%
+        </strong>
+
+        <span>
+            Proporción de faltantes
+        </span>
+
+    </div>
+
+
+    <div>
+
+        <strong>
+            {{ quality.localities }}
+        </strong>
+
+        <span>
+            Localidades
+        </span>
+
+    </div>
+
+
+	<div>
+		<strong>{{ observed_period }}</strong>
+		<span>Periodo observado</span>
+	</div>
+
+	<div>
+		<strong>{{ observed_months }}</strong>
+		<span>Meses observados</span>
+	</div>
+
+{% if is_monthly and partial_years %}
+<div class="notice notice-warning" style="margin-top:18px; margin-bottom:0;">
+
+    <p>
+        <strong>Cobertura temporal parcial.</strong>
+        El año {{ partial_years[-1] }} tiene menos de 12 meses observados.
+        Los años parciales no deben compararse directamente con años
+        completos como si representaran un año cerrado.
+        El pronóstico y las comparaciones temporales deben interpretarse
+        considerando esta cobertura incompleta.
+    </p>
+
+</div>
+{% endif %}
+
+
+</section>
+
+<!-- =====================================================
+     TENDENCIA TEMPORAL
+====================================================== -->
+
+<section class="card">
+
+
+<div class="section-head">
+
+    <div>
+
+        <h2>
+            Tendencia temporal
+        </h2>
+
+        <p class="muted">
+            Evolución de los registros observados a través del tiempo.
+            La línea suavizada representa una media móvil y se utiliza
+            únicamente como apoyo descriptivo.
+        </p>
+
+    </div>
+
+</div>
+
+<div
+    id="trendChart"
+    class="chart"
+></div>
+
+
+</section>
+
+<!-- =====================================================
+     COMPARACIÓN ANUAL
+====================================================== -->
+
+<section class="card">
+
+
+<div class="section-head">
+
+    <div>
+
+        <h2>
+            Comparación anual
+        </h2>
+
+        <p class="muted">
+            Comparación de los registros acumulados por año.
+            Los años con cobertura completa se muestran por separado
+            de los periodos parciales. Un año parcial no debe
+            interpretarse como un total anual comparable con un año cerrado.
+        </p>
+
+    </div>
+
+</div>
+
+<div
+    id="annualChart"
+    class="chart"
+></div>
+
+
+</section>
+
+<!-- =====================================================
+     DISTRIBUCIONES
+====================================================== -->
+
+<section class="grid two">
+
+
+<!-- Sexo -->
+
+<div class="card">
+
+    <div class="section-head">
+
+        <div>
+
+            <h2>
+                Distribución por sexo
+            </h2>
+
+            <p class="muted">
+                Participación relativa dentro del conjunto filtrado.
+            </p>
+
+        </div>
+
+    </div>
+
+    <div
+        id="sexChart"
+        class="chart-small"
+    ></div>
+
+</div>
+
+
+<!-- Edad -->
+
+<div class="card">
+
+    <div class="section-head">
+
+        <div>
+
+            <h2>
+                Distribución por grupo de edad
+            </h2>
+
+            <p class="muted">
+                Distribución de los registros según los grupos
+                de edad disponibles en la fuente.
+            </p>
+
+        </div>
+
+    </div>
+
+    <div
+        id="ageChart"
+        class="chart-small"
+    ></div>
+
+</div>
+
+
+</section>
+
+<!-- =====================================================
+     LOCALIDADES
+====================================================== -->
+
+<section class="card">
+
+
+<div class="section-head">
+
+    <div>
+
+        <h2>
+            Distribución por localidad
+        </h2>
+
+        <p class="muted">
+            Localidades ordenadas por número de registros.
+            Haga clic sobre una barra para consultar el detalle.
+        </p>
+
+        <p
+            id="localitySelection"
+            class="selection-detail"
+        >
+            Seleccione una localidad en el gráfico.
+        </p>
+
+    </div>
+
+</div>
+
+<div
+    id="localityChart"
+    class="chart-tall"
+></div>
+
+
+</section>
+
+<!-- =====================================================
+     ESTACIONALIDAD
+====================================================== -->
+
+{% if is_monthly %}
+
+<section class="section">
+
+    <div class="section-head">
+
+        <div>
+
+            <h2>
+                Comportamiento mensual histórico
+            </h2>
+
+            <p class="muted">
+                Media histórica y variabilidad observada para cada mes.
+                Describe el comportamiento histórico y no constituye
+                una predicción.
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- aquí permanece exactamente el contenido actual
+         de la gráfica mensual -->
+
+</section>
+
+{% endif %}
+
+<!-- =====================================================
+     ANOMALÍAS
+====================================================== -->
+
+<section class="card">
+
+<div class="section-head">
+
+    <div>
+
+        <h2>
+            Desviaciones estadísticas
+        </h2>
+
+        <p class="muted">
+            Los puntos destacados presentan una desviación estadística
+            respecto al patrón histórico utilizado como referencia.
+            No representan alertas clínicas ni epidemiológicas.
+        </p>
+
+    </div>
+
+</div>
+
+<div
+    id="anomalyChart"
+    class="chart"
+></div>
+{% if models and models.winner and models.forecast is not none %}
+
+</section>
+
+<!-- =====================================================
+     MODELOS
+====================================================== -->
+
+<section class="card">
+
+
+<div class="section-head">
+
+    <div>
+
+        <h2>
+            Evaluación experimental de modelos temporales
+        </h2>
+
+        <p class="muted">
+            Comparación fuera de muestra entre modelos de referencia
+            y Random Forest. Los resultados son exploratorios y no
+            constituyen una herramienta clínica ni una garantía
+            del comportamiento futuro.
+        </p>
+
+    </div>
+
+</div>
+
+
+{% if models and models.winner and models.forecast is not none %}
+
+<div class="predictive-summary">
+
+    <div class="metric-card">
+
+        <span class="metric-label">
+            Menor MAE en la evaluación
+        </span>
+
+        <strong>
+            {{ models.winner }}
+        </strong>
+
+        <small>
+            Mejor desempeño relativo según el error absoluto medio.
+        </small>
+
+    </div>
+
+
+    <div class="metric-card">
+
+        <span class="metric-label">
+            Estimación exploratoria del siguiente periodo
+        </span>
+
+        <strong>
+            {{ "%.1f"|format(models.forecast) }}
+        </strong>
+
+        <small>
+            {{ models.forecast_label }}
+        </small>
+
+    </div>
+
+
+    <div class="metric-card">
+
+        <span class="metric-label">
+            Periodo de evaluación
+        </span>
+
+        <strong>
+
+            {% if models.evaluation_years %}
+
+                {{ models.evaluation_years[0] }}
+                –
+                {{ models.evaluation_years[-1] }}
+
+            {% else %}
+
+                No disponible
+
+            {% endif %}
+
+        </strong>
+
+        <small>
+            Evaluación temporal fuera de muestra.
+        </small>
+
+    </div>
+
+</div>
+
+
+{% else %}
+
+<div class="notice notice-warning" style="margin-top: 18px;">
+
+    <p>
+        <strong>Evaluación no disponible para este subconjunto.</strong>
+        No hay suficientes observaciones para realizar una evaluación
+        temporal de modelos con los filtros seleccionados.
+        Los demás análisis del dashboard continúan disponibles.
+    </p>
+
+</div>
+
+{% endif %}
+
+
+</section>
+
+
+
+<!-- =================================================
+     TABLA DE MODELOS
+================================================== -->
+
+{% if models.results is defined and models.results %}
+
+<div class="table-wrapper">
+
+    <table class="data-table">
+
+        <thead>
+
+            <tr>
+
+                <th>
+                    Modelo
+                </th>
+
+                <th>
+                    MAE
+                </th>
+
+                <th>
+                    RMSE
+                </th>
+
+                <th>
+                    R²
+                </th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for item in models.results %}
+
+            <tr
+                {% if item.name == models.winner %}
+                    class="model-best"
+                {% endif %}
+            >
+
+                <td>
+                    {{ item.name }}
+                </td>
+
+                <td>
+                    {{ "%.2f"|format(item.mae) }}
+                </td>
+
+                <td>
+                    {{ "%.2f"|format(item.rmse) }}
+                </td>
+
+                <td>
+                    {{ "%.2f"|format(item.r2) }}
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endif %}
+
+
+<!-- =================================================
+     INTERPRETACIÓN
+================================================== -->
+
+<div class="predictive-note">
+
+    <p>
+        <strong>Interpretación:</strong>
+        el modelo con menor MAE en la evaluación temporal fue
+        {{ models.winner }}.
+        Este criterio identifica el menor error absoluto medio
+        entre los modelos evaluados; no implica que el modelo
+        represente una herramienta predictiva clínicamente validada.
+    </p>
+
+	<p>
+		La estimación del siguiente periodo corresponde al periodo
+		inmediatamente posterior al último periodo observado en la fuente.
+		Su finalidad es exploratoria y no constituye una herramienta
+		clínica ni una garantía del comportamiento futuro.
+	</p>
+
+</div>
+
+{% else %}
+
+<div class="notice notice-info">
+
+    <p>
+        No fue posible construir una evaluación experimental de modelos
+        para el subconjunto actualmente seleccionado.
+    </p>
+
+</div>
+
+{% endif %}
+
+
+</section>
+
+<!-- =====================================================
+     FUENTE Y ALCANCE
+====================================================== -->
+
+<section class="card">
+
+
+<div class="section-head">
+
+    <div>
+
+        <h2>
+            Fuente y alcance del análisis
+        </h2>
+
+        <p class="muted">
+            Los datos utilizados provienen del portal oficial
+            de datos abiertos de Bogotá.
+        </p>
+
+        {% if source.url %}
+
+        <p class="muted">
+
+            <a
+                href="{{ source.url }}"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Consultar recurso original
+            </a>
+
+        </p>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+<div class="notice notice-info">
+
+    <p>
+        SaludData STEM realiza análisis exploratorio sobre los
+        registros disponibles en la fuente seleccionada.
+        Los resultados dependen de la calidad, cobertura temporal,
+        estructura y actualización de los datos de origen.
+
+        Las estadísticas mostradas no deben interpretarse como
+        tasas poblacionales, diagnósticos, recomendaciones clínicas
+        ni alertas epidemiológicas.
+    </p>
+
+</div>
+
+
+</section>
+
+<!-- =====================================================
+     DATOS PARA JAVASCRIPT
+====================================================== -->
+
+<script>
+
+    const trend = {{ trend_json | safe }};
+    const annual = {{ annual_json | safe }};
+    const anomalies = {{ anomaly_json | safe }};
+    const seasonality = {{ seasonality_json | safe }};
+    const sexRows = {{ sex_json | safe }};
+    const localityRows = {{ locality_json | safe }};
+    const ageRows = {{ age_json | safe }};
+
+    const partialYears = {{ partial_years | tojson }};
+    const isMonthly = {{ (granularity == 'monthly') | tojson }};
+
+    const plotConfig = {
+        responsive: true,
+        displaylogo: false,
+        modeBarButtonsToRemove: [
+            "lasso2d",
+            "select2d"
+        ]
+    };
+
+
+    /* =====================================================
+       UTILIDADES
+    ====================================================== */
+
+    function empty(containerId, message = "No hay datos disponibles para este análisis.") {
+
+        const container = document.getElementById(containerId);
+
+        if (!container) {
+            return;
+        }
+
+        container.innerHTML = `
+            <div class="chart-empty">
+                ${message}
+            </div>
+        `;
+    }
+
+
+    function formatNumber(value, decimals = 0) {
+
+        const number = Number(value);
+
+        if (!Number.isFinite(number)) {
+            return "—";
+        }
+
+        return number.toLocaleString(
+            "es-CO",
+            {
+                minimumFractionDigits: decimals,
+                maximumFractionDigits: decimals
+            }
+        );
+    }
+
+
+    function formatMonthFromISO(value) {
+
+        if (!value) {
+            return "";
+        }
+
+        const date = new Date(value);
+
+        if (Number.isNaN(date.getTime())) {
+            return value;
+        }
+
+        return date.toLocaleDateString(
+            "es-CO",
+            {
+                month: "short",
+                year: "numeric",
+                timeZone: "UTC"
+            }
+        );
+    }
+
+
+    function getYearFromValue(value) {
+
+        if (value === null || value === undefined) {
+            return null;
+        }
+
+        const text = String(value);
+
+        const match = text.match(/\d{4}/);
+
+        return match
+            ? Number(match[0])
+            : null;
+    }
+
+
+    /* =====================================================
+       TENDENCIA
+    ====================================================== */
+
+    if (Array.isArray(trend) && trend.length > 0) {
+
+        const dates = trend.map(
+            row => row.date
+        );
+
+        const values = trend.map(
+            row => Number(row.value)
+        );
+
+        const rolling = trend.map(
+            row => Number(row.rolling_mean)
+        );
+
+        Plotly.newPlot(
+            "trendChart",
+            [
+                {
+                    x: dates,
+                    y: values,
+                    type: "scatter",
+                    mode: "lines",
+                    name: "Registros",
+                    line: {
+                        width: 2
+                    },
+                    hovertemplate:
+                        "%{x|%b %Y}<br>" +
+                        "Registros: %{y:,.0f}" +
+                        "<extra></extra>"
+                },
+                {
+                    x: dates,
+                    y: rolling,
+                    type: "scatter",
+                    mode: "lines",
+                    name: "Media móvil",
+                    line: {
+                        width: 2,
+                        dash: "dash"
+                    },
+                    hovertemplate:
+                        "%{x|%b %Y}<br>" +
+                        "Media móvil: %{y:,.1f}" +
+                        "<extra></extra>"
+                }
+            ],
+            {
+                margin: {
+                    l: 55,
+                    r: 20,
+                    t: 20,
+                    b: 55
+                },
+                hovermode: "x unified",
+                legend: {
+                    orientation: "h",
+                    y: 1.08
+                },
+                xaxis: {
+                    title: "Periodo"
+                },
+                yaxis: {
+                    title: "Registros"
+                }
+            },
+            plotConfig
+        );
+
+    } else {
+
+        empty("trendChart");
+
+    }
+
+
+    /* =====================================================
+       COMPARACIÓN ANUAL
+    ====================================================== */
+
+    if (Array.isArray(annual) && annual.length > 0) {
+
+        const complete = annual.filter(
+            row => !partialYears.includes(
+                Number(row.year)
+            )
+        );
+
+        const partial = annual.filter(
+            row => partialYears.includes(
+                Number(row.year)
+            )
+        );
+
+        const traces = [];
+
+        if (complete.length > 0) {
+
+            traces.push({
+                x: complete.map(
+                    row => row.year
+                ),
+                y: complete.map(
+                    row => Number(row.value)
+                ),
+                type: "bar",
+                name: "Años completos",
+                hovertemplate:
+                    "%{x}<br>" +
+                    "Registros: %{y:,.0f}" +
+                    "<extra></extra>"
+            });
+
+        }
+
+        if (partial.length > 0) {
+
+            traces.push({
+                x: partial.map(
+                    row => row.year
+                ),
+                y: partial.map(
+                    row => Number(row.value)
+                ),
+                type: "bar",
+                name: "Periodo parcial",
+                hovertemplate:
+                    "%{x}<br>" +
+                    "Registros observados: %{y:,.0f}" +
+                    "<extra></extra>"
+            });
+
+        }
+
+        if (traces.length > 0) {
+
+            Plotly.newPlot(
+                "annualChart",
+                traces,
+                {
+                    margin: {
+                        l: 55,
+                        r: 20,
+                        t: 20,
+                        b: 55
+                    },
+                    barmode: "group",
+                    xaxis: {
+                        title: "Año",
+                        type: "category"
+                    },
+                    yaxis: {
+                        title: "Registros"
+                    }
+                },
+                plotConfig
+            );
+
+        } else {
+
+            empty("annualChart");
+
+        }
+
+    } else {
+
+        empty("annualChart");
+
+    }
+
+
+    /* =====================================================
+       SEXO
+    ====================================================== */
+
+    if (Array.isArray(sexRows) && sexRows.length > 0) {
+
+        Plotly.newPlot(
+            "sexChart",
+            [
+                {
+                    labels: sexRows.map(
+                        row => row.sex
+                    ),
+                    values: sexRows.map(
+                        row => Number(row.value)
+                    ),
+                    type: "pie",
+                    hole: 0.45,
+                    textinfo: "label+percent",
+                    hovertemplate:
+                        "%{label}<br>" +
+                        "Registros: %{value:,.0f}<br>" +
+                        "Participación: %{percent}" +
+                        "<extra></extra>"
+                }
+            ],
+            {
+                margin: {
+                    l: 20,
+                    r: 20,
+                    t: 20,
+                    b: 20
+                },
+                showlegend: true,
+                legend: {
+                    orientation: "h"
+                }
+            },
+            plotConfig
+        );
+
+    } else {
+
+        empty("sexChart");
+
+    }
+
+
+    /* =====================================================
+       LOCALIDADES
+    ====================================================== */
+
+    if (
+        Array.isArray(localityRows) &&
+        localityRows.length > 0
+    ) {
+
+        const topLocalities =
+            localityRows.slice(0, 10);
+
+        Plotly.newPlot(
+            "localityChart",
+            [
+                {
+                    x: topLocalities.map(
+                        row => Number(row.value)
+                    ),
+                    y: topLocalities.map(
+                        row => row.locality
+                    ),
+                    type: "bar",
+                    orientation: "h",
+                    hovertemplate:
+                        "%{y}<br>" +
+                        "Registros: %{x:,.0f}" +
+                        "<extra></extra>"
+                }
+            ],
+            {
+                margin: {
+                    l: 145,
+                    r: 25,
+                    t: 20,
+                    b: 45
+                },
+                xaxis: {
+                    title: "Registros"
+                },
+                yaxis: {
+                    autorange: "reversed"
+                }
+            },
+            plotConfig
+        );
+
+
+        const localityChart =
+            document.getElementById(
+                "localityChart"
+            );
+
+        if (localityChart) {
+
+            localityChart.on(
+                "plotly_click",
+                function(eventData) {
+
+                    if (
+                        !eventData ||
+                        !eventData.points ||
+                        !eventData.points.length
+                    ) {
+                        return;
+                    }
+
+                    const point =
+                        eventData.points[0];
+
+                    const label =
+                        point.y;
+
+                    const value =
+                        point.x;
+
+                    const detail =
+                        document.getElementById(
+                            "localitySelection"
+                        );
+
+                    if (detail) {
+
+                        detail.textContent =
+                            `${label}: ${formatNumber(value)} registros observados.`;
+
+                    }
+
+                }
+            );
+
+        }
+
+    } else {
+
+        empty("localityChart");
+
+    }
+
+
+    /* =====================================================
+       EDAD
+    ====================================================== */
+
+    if (
+        Array.isArray(ageRows) &&
+        ageRows.length > 0
+    ) {
+
+        Plotly.newPlot(
+            "ageChart",
+            [
+                {
+                    x: ageRows.map(
+                        row => row.age_group
+                    ),
+                    y: ageRows.map(
+                        row => Number(row.value)
+                    ),
+                    type: "bar",
+                    hovertemplate:
+                        "%{x}<br>" +
+                        "Registros: %{y:,.0f}" +
+                        "<extra></extra>"
+                }
+            ],
+            {
+                margin: {
+                    l: 55,
+                    r: 20,
+                    t: 20,
+                    b: 80
+                },
+                xaxis: {
+                    title: "Grupo de edad",
+                    tickangle: -35
+                },
+                yaxis: {
+                    title: "Registros"
+                }
+            },
+            plotConfig
+        );
+
+    } else {
+
+        empty("ageChart");
+
+    }
+
+
+    /* =====================================================
+       ESTACIONALIDAD
+    ====================================================== */
+
+    if (
+        Array.isArray(seasonality) &&
+        seasonality.length > 0
+    ) {
+
+        Plotly.newPlot(
+            "seasonalityChart",
+            [
+                {
+                    x: seasonality.map(
+                        row => row.label
+                    ),
+                    y: seasonality.map(
+                        row => Number(row.mean)
+                    ),
+                    type: "bar",
+                    error_y: {
+                        type: "data",
+                        array: seasonality.map(
+                            row => Number(row.std || 0)
+                        ),
+                        visible: true
+                    },
+                    hovertemplate:
+                        "%{x}<br>" +
+                        "Media: %{y:,.1f}" +
+                        "<extra></extra>"
+                }
+            ],
+            {
+                margin: {
+                    l: 55,
+                    r: 20,
+                    t: 20,
+                    b: 70
+                },
+                xaxis: {
+                    title: "Mes"
+                },
+                yaxis: {
+                    title: "Promedio de registros"
+                }
+            },
+            plotConfig
+        );
+
+    } else {
+
+        empty("seasonalityChart");
+
+    }
+
+
+    /* =====================================================
+       ANOMALÍAS
+    ====================================================== */
+
+    if (
+        Array.isArray(anomalies) &&
+        anomalies.length > 0
+    ) {
+
+        const normal = anomalies.filter(
+            row => !row.anomaly
+        );
+
+        const flagged = anomalies.filter(
+            row => row.anomaly
+        );
+
+        const traces = [];
+
+
+        if (normal.length > 0) {
+
+            traces.push({
+                x: normal.map(
+                    row => row.date
+                ),
+                y: normal.map(
+                    row => Number(row.value)
+                ),
+                type: "scatter",
+                mode: "lines",
+                name: "Observaciones",
+                hovertemplate:
+                    "%{x|%b %Y}<br>" +
+                    "Registros: %{y:,.0f}" +
+                    "<extra></extra>"
+            });
+
+        }
+
+
+        if (flagged.length > 0) {
+
+            traces.push({
+                x: flagged.map(
+                    row => row.date
+                ),
+                y: flagged.map(
+                    row => Number(row.value)
+                ),
+                type: "scatter",
+                mode: "markers",
+                name: "Desviaciones destacadas",
+                marker: {
+                    size: 9
+                },
+                customdata: flagged.map(
+                    row => [
+                        Number(
+                            row.zscore || 0
+                        )
+                    ]
+                ),
+                hovertemplate:
+                    "%{x|%b %Y}<br>" +
+                    "Registros: %{y:,.0f}<br>" +
+                    "Desviación: %{customdata[0]:.2f}" +
+                    "<extra></extra>"
+            });
+
+        }
+
+
+        if (traces.length > 0) {
+
+            Plotly.newPlot(
+                "anomalyChart",
+                traces,
+                {
+                    margin: {
+                        l: 55,
+                        r: 20,
+                        t: 20,
+                        b: 55
+                    },
+                    hovermode: "x unified",
+                    xaxis: {
+                        title: "Periodo"
+                    },
+                    yaxis: {
+                        title: "Registros"
+                    }
+                },
+                plotConfig
+            );
+
+        } else {
+
+            empty("anomalyChart");
+
+        }
+
+    } else {
+
+        empty("anomalyChart");
+
+    }
+
+</script>
+
+{% endblock %}

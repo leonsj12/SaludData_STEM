@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block title %}SaludData STEM — Dashboard V2.1{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <p class="eyebrow">EXPLORADOR INTERACTIVO · V2.1</p>
+    <h1>{{ source.label }}</h1>
+    <p class="muted">Exploración estadística de datos abiertos. Los resultados son exploratorios y no constituyen diagnóstico ni vigilancia clínica.</p>
+  </div>
+</div>
+
+<form class="filters card" method="get">
+  <label>Fuente<select name="fuente">{% for key,item in sources.items() %}<option value="{{ key }}" {% if key==source_key %}selected{% endif %}>{{ item.label }}</option>{% endfor %}</select></label>
+  <label>Desde<select name="desde"><option value="">Todos</option>{% for y in years %}<option value="{{ y }}" {% if year_from==y %}selected{% endif %}>{{ y }}</option>{% endfor %}</select></label>
+  <label>Hasta<select name="hasta"><option value="">Todos</option>{% for y in years %}<option value="{{ y }}" {% if year_to==y %}selected{% endif %}>{{ y }}</option>{% endfor %}</select></label>
+  <label>Sexo<select name="sexo" multiple size="1">{% for value in sex_values %}<option value="{{ value }}" {% if value in selected_sex %}selected{% endif %}>{{ value }}</option>{% endfor %}</select></label>
+  <label>Localidad<select name="localidad" multiple size="1">{% for value in loc_values %}<option value="{{ value }}" {% if value in selected_loc %}selected{% endif %}>{{ value }}</option>{% endfor %}</select></label>
+  <div class="filter-actions"><button class="button" type="submit">Actualizar</button><a class="button secondary" href="{{ url_for('main.dashboard', fuente=source_key) }}">Limpiar</a></div>
+</form>
+<p class="small-note">Consejo: en Sexo y Localidad puedes seleccionar varias opciones con Ctrl/Cmd + clic.</p>
+
+<section class="grid four metrics">
+  <div class="metric"><small>Registros</small><strong>{{ "{:,.0f}".format(records) }}</strong><span class="sub">Con filtros actuales</span></div>
+  <div class="metric"><small>Promedio mensual</small><strong>{{ "{:,.1f}".format(monthly_average) }}</strong><span class="sub">Registros por mes</span></div>
+  <div class="metric"><small>Máximo mensual</small><strong>{{ "{:,.0f}".format(peak_value) }}</strong><span class="sub">{{ peak_date }}</span></div>
+  <div class="metric"><small>Último mes</small><strong>{{ "{:,.0f}".format(latest_value) }}</strong><span class="sub">{{ latest_date }}</span></div>
+</section>
+
+{% if partial_years %}
+<section class="card notice"><div class="section-head"><h2>Cobertura temporal</h2><span class="badge">Dato parcial</span></div><p class="muted">{% if partial_years|length==1 %}El año <strong>{{ partial_years[0] }}</strong> está incompleto y no debe compararse directamente con años completos.{% else %}Los años <strong>{{ partial_years|join(", ") }}</strong> están incompletos y no deben compararse directamente con años completos.{% endif %}</p></section>
+{% endif %}
+
+<section class="card">
+  <div class="section-head"><div><h2>Evolución mensual interactiva</h2><p class="muted">Zoom, desplazamiento, rango temporal y alternancia entre serie mensual y media móvil de 12 meses.</p></div><span class="badge">Plotly</span></div>
+  <div id="trend-chart" class="chart"></div><div id="trend-selection" class="selection-readout">Haz clic en un punto para ver el detalle.</div>
+</section>
+
+<section class="grid two">
+  <div class="card"><div class="section-head"><div><h2>Comparación anual</h2><p class="muted">Los años parciales se identifican para evitar comparaciones engañosas.</p></div></div><div id="annual-chart" class="chart compact"></div></div>
+  <div class="card"><div class="section-head"><div><h2>Distribución por sexo</h2><p class="muted">Participación dentro del conjunto filtrado.</p></div></div><div id="sex-chart" class="chart compact"></div></div>
+</section>
+
+<section class="grid two">
+  <div class="card"><div class="section-head"><div><h2>Top 10 localidades</h2><p class="muted">Ordenadas por número de registros.</p></div></div><div id="locality-chart" class="chart tall"></div><div id="locality-selection" class="selection-readout">Haz clic en una localidad para verla aquí.</div></div>
+  <div class="card"><div class="section-head"><div><h2>Estacionalidad mensual</h2><p class="muted">Promedio histórico y variabilidad por mes.</p></div></div><div id="seasonality-chart" class="chart tall"></div></div>
+</section>
+
+<section class="grid two">
+  <div class="card"><div class="section-head"><div><h2>Desviaciones estadísticas</h2><p class="muted">Los puntos destacados son desviaciones respecto al patrón histórico; no son alertas clínicas.</p></div></div><div id="anomaly-chart" class="chart"></div></div>
+  <div class="card"><div class="section-head"><div><h2>Evaluación predictiva</h2><p class="muted">Comparación exploratoria entre modelo ingenuo y Random Forest.</p></div></div><div id="model-chart" class="chart"></div>
+  {% if model and model.winner %}<p class="muted">Ganador en prueba: <strong>{{ model.winner }}</strong>. {% if model.random_forest %}MAE: <strong>{{ "%.2f"|format(model.random_forest.mae) }}</strong> · RMSE: <strong>{{ "%.2f"|format(model.random_forest.rmse) }}</strong> · R²: <strong>{{ "%.2f"|format(model.random_forest.r2) }}</strong>.{% endif %}</p>{% endif %}
+  </div>
+</section>
+
+<section class="card"><div class="section-head"><div><h2>Calidad y cobertura</h2><p class="muted">Resumen del subconjunto actualmente filtrado.</p></div><span class="badge">Datos abiertos</span></div>
+  <div class="quality-list"><div><small>Registros</small><strong>{{ quality.records }}</strong></div><div><small>Columnas</small><strong>{{ quality.columns }}</strong></div><div><small>Faltantes</small><strong>{{ quality.missing_total }} ({{ quality.missing_percent }}%)</strong></div><div><small>Localidades</small><strong>{{ quality.localities }}</strong></div><div><small>Años completos</small><strong>{{ complete_years|join(", ") if complete_years else "—" }}</strong></div><div><small>Años parciales</small><strong>{{ partial_years|join(", ") if partial_years else "Ninguno" }}</strong></div></div>
+  <p class="muted">Periodo observado: {{ quality.year_min }} – {{ quality.year_max }} · {{ quality.months_observed }} meses observados.</p>
+</section>
+
+<section class="card"><h2>Fuente oficial</h2><p class="muted">Los datos utilizados provienen del portal oficial de datos abiertos de Bogotá.</p><a href="{{ source.url }}" target="_blank" rel="noopener">Consultar ficha del conjunto de datos</a></section>
+
+<script>
+const trend={{ trend_json|safe }};
+const anomalies={{ anomaly_json|safe }};
+const seasonality={{ seasonality_json|safe }};
+const annual={{ annual_json|safe }};
+const sex={{ sex_json|safe }};
+const locality={{ locality_json|safe }};
+const models={{ models|tojson|safe }};
+const partialYears={{ partial_years|tojson|safe }};
+
+const config={responsive:true,displaylogo:false,scrollZoom:true,modeBarButtonsToRemove:['lasso2d','select2d']};
+const layoutBase={paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',font:{family:'Inter, Segoe UI, Arial, sans-serif',color:'#172033'},hoverlabel:{namelength:-1},margin:{t:20,r:20,b:55,l:60},uirevision:'saluddata-v21'};
+const noData=(id,msg)=>{document.getElementById(id).innerHTML='<div class="chart-message">'+msg+'</div>';};
+
+if(trend.length){
+  const monthly=trend.map(d=>d.value); const rolling=monthly.map((_,i)=>i<11?null:monthly.slice(i-11,i+1).reduce((a,b)=>a+b,0)/12);
+  Plotly.newPlot('trend-chart',[
+    {x:trend.map(d=>d.date),y:monthly,type:'scatter',mode:'lines+markers',name:'Mensual',customdata:trend.map(d=>[d.year,d.month]),hovertemplate:'%{x|%b %Y}<br>Registros: %{y:,.0f}<extra></extra>'},
+    {x:trend.map(d=>d.date),y:rolling,type:'scatter',mode:'lines',name:'Media móvil 12M',visible:'legendonly',hovertemplate:'%{x|%b %Y}<br>Media 12M: %{y:,.1f}<extra></extra>'}
+  ],{...layoutBase,hovermode:'x unified',xaxis:{title:'Fecha',type:'date',rangeslider:{visible:true,thickness:.08},rangeselector:{buttons:[{count:12,label:'1A',step:'month',stepmode:'backward'},{count:36,label:'3A',step:'month',stepmode:'backward'},{count:60,label:'5A',step:'month',stepmode:'backward'},{step:'all',label:'Todo'}]}},yaxis:{title:'Registros',rangemode:'tozero'}},config);
+  document.getElementById('trend-chart').on('plotly_click',e=>{const p=e.points[0];document.getElementById('trend-selection').textContent='Seleccionado: '+new Date(p.x).toLocaleDateString('es-CO',{month:'long',year:'numeric'})+' · '+Number(p.y).toLocaleString('es-CO')+' registros.';});
+}else noData('trend-chart','No hay datos para mostrar con los filtros seleccionados.');
+
+if(annual.length){
+  const xs=annual.map(d=>String(d.year)); const partial=annual.map(d=>partialYears.includes(Number(d.year))); const text=annual.map((d,i)=>partial[i]?'Parcial · '+Number(d.value).toLocaleString('es-CO'):Number(d.value).toLocaleString('es-CO'));
+  Plotly.newPlot('annual-chart',[{x:xs,y:annual.map(d=>d.value),type:'bar',text:text,textposition:'auto',customdata:partial.map(v=>v?'Año parcial':'Año completo'),hovertemplate:'Año %{x}<br>Registros: %{y:,.0f}<br>%{customdata}<extra></extra>'}],{...layoutBase,xaxis:{title:'Año'},yaxis:{title:'Registros',rangemode:'tozero'}},config);
+}else noData('annual-chart','No hay datos anuales.');
+
+if(sex.length){
+  Plotly.newPlot('sex-chart',[{labels:sex.map(d=>d.category),values:sex.map(d=>d.value),type:'pie',hole:.58,textinfo:'label+percent',hovertemplate:'%{label}<br>%{value:,.0f} registros<br>%{percent}<extra></extra>'}],{...layoutBase,showlegend:true,margin:{t:10,r:10,b:10,l:10},legend:{orientation:'h',y:-.05}},config);
+}else noData('sex-chart','No hay datos de sexo disponibles.');
+
+if(locality.length){
+  const rev=[...locality].reverse();
+  Plotly.newPlot('locality-chart',[{y:rev.map(d=>d.category),x:rev.map(d=>d.value),type:'bar',orientation:'h',hovertemplate:'%{y}<br>%{x:,.0f} registros<extra></extra>'}],{...layoutBase,margin:{t:20,r:20,b:45,l:125},xaxis:{title:'Registros'},yaxis:{title:''}},config);
+  document.getElementById('locality-chart').on('plotly_click',e=>{const p=e.points[0];document.getElementById('locality-selection').textContent='Localidad seleccionada: '+p.y+' · '+Number(p.x).toLocaleString('es-CO')+' registros.';});
+}else noData('locality-chart','No hay localidades para mostrar.');
+
+if(seasonality.length){
+  Plotly.newPlot('seasonality-chart',[{x:seasonality.map(d=>d.month),y:seasonality.map(d=>d.mean),type:'bar',customdata:seasonality.map(d=>[d.median,d.std,d.min,d.max,d.observations]),hovertemplate:'Mes %{x}<br>Promedio: %{y:,.1f}<br>Mediana: %{customdata[0]:,.1f}<br>Desv. estándar: %{customdata[1]:,.1f}<br>Mín: %{customdata[2]:,.0f} · Máx: %{customdata[3]:,.0f}<br>Observaciones: %{customdata[4]}<extra></extra>'}],{...layoutBase,xaxis:{title:'Mes',dtick:1},yaxis:{title:'Promedio mensual',rangemode:'tozero'}},config);
+}else noData('seasonality-chart','No hay datos suficientes para calcular la estacionalidad.');
+
+if(anomalies.length){const a=anomalies.filter(d=>d.anomaly);Plotly.newPlot('anomaly-chart',[{x:anomalies.map(d=>d.date),y:anomalies.map(d=>d.value),type:'scatter',mode:'lines+markers',name:'Serie',hovertemplate:'%{x|%b %Y}<br>Registros: %{y:,.0f}<extra></extra>'},{x:a.map(d=>d.date),y:a.map(d=>d.value),type:'scatter',mode:'markers',name:'Desviación',marker:{size:12,symbol:'diamond'},customdata:a.map(d=>d.zscore),hovertemplate:'%{x|%b %Y}<br>Registros: %{y:,.0f}<br>Z-score: %{customdata:.2f}<extra></extra>'}],{...layoutBase,hovermode:'x unified',xaxis:{title:'Fecha',type:'date'},yaxis:{title:'Registros'}},config);}else noData('anomaly-chart','No hay suficientes datos para calcular desviaciones.');
+
+if(models && models.random_forest && models.baseline){
+  Plotly.newPlot('model-chart',[{x:['MAE','RMSE'],y:[models.baseline.mae,models.baseline.rmse],type:'bar',name:'Naive',hovertemplate:'Naive · %{x}: %{y:.2f}<extra></extra>'},{x:['MAE','RMSE'],y:[models.random_forest.mae,models.random_forest.rmse],type:'bar',name:'Random Forest',hovertemplate:'Random Forest · %{x}: %{y:.2f}<extra></extra>'}],{...layoutBase,barmode:'group',xaxis:{title:'Métrica'},yaxis:{title:'Error'},legend:{orientation:'h',y:1.08}},config);
+}else noData('model-chart','No hay suficientes observaciones para evaluar los modelos.');
+</script>
+{% endblock %}

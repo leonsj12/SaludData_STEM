@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+{% block title %}SaludData STEM — Dashboard V2.2{% endblock %}
+{% block content %}
+
+<div class="page-head page-head-flex">
+  <div>
+    <p class="eyebrow">EXPLORADOR INTERACTIVO · V2.2</p>
+    <h1>{{ source.label }}</h1>
+    <p class="muted">Análisis estadístico exploratorio de datos abiertos. No constituye diagnóstico ni vigilancia clínica.</p>
+  </div>
+  <div class="badge {% if granularity == 'monthly' %}badge-monthly{% else %}badge-annual{% endif %}">
+    Análisis {{ granularity_label }}
+  </div>
+</div>
+
+<form class="filters filters-v22" method="get">
+  <label>Fuente
+    <select name="fuente" onchange="this.form.submit()">
+      {% for key, item in sources.items() %}
+      <option value="{{ key }}" {% if key == source_key %}selected{% endif %}>{{ item.label }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <label>Desde
+    <select name="desde">
+      <option value="">Todos</option>
+      {% for y in all_years %}<option value="{{ y }}" {% if year_from == y %}selected{% endif %}>{{ y }}</option>{% endfor %}
+    </select>
+  </label>
+  <label>Hasta
+    <select name="hasta">
+      <option value="">Todos</option>
+      {% for y in all_years %}<option value="{{ y }}" {% if year_to == y %}selected{% endif %}>{{ y }}</option>{% endfor %}
+    </select>
+  </label>
+  <label>Sexo
+    <select name="sexo" multiple size="3">
+      {% for value in sex_values %}<option value="{{ value }}" {% if value in selected_sex %}selected{% endif %}>{{ value }}</option>{% endfor %}
+    </select>
+  </label>
+  <label>Localidad
+    <select name="localidad" multiple size="4">
+      {% for value in loc_values %}<option value="{{ value }}" {% if value in selected_loc %}selected{% endif %}>{{ value }}</option>{% endfor %}
+    </select>
+  </label>
+  <div class="filter-actions">
+    <button class="button" type="submit">Actualizar</button>
+    <a class="button button-light" href="{{ url_for('main.dashboard', fuente=source_key) }}">Limpiar</a>
+  </div>
+</form>
+<p class="filter-tip">En Sexo y Localidad puedes seleccionar varias opciones con Ctrl/Cmd + clic.</p>
+
+<section class="grid four metrics metrics-v22">
+  <div class="metric"><small>Registros</small><strong>{{ "{:,.0f}".format(records) }}</strong><span>Con filtros actuales</span></div>
+  <div class="metric"><small>Promedio {{ granularity_label }}</small><strong>{{ "{:,.1f}".format(avg_value) }}</strong><span>Registros por {{ "mes" if granularity == "monthly" else "año" }}</span></div>
+  <div class="metric"><small>Máximo {{ granularity_label }}</small><strong>{{ "{:,.0f}".format(peak_value) }}</strong><span>{{ peak_label }}</span></div>
+  <div class="metric"><small>Último periodo</small><strong>{{ "{:,.0f}".format(latest_value) }}</strong><span>{{ latest_label }}{% if latest_delta is not none %} · {{ "%+.1f"|format(latest_delta) }}%{% endif %}</span></div>
+</section>
+
+{% if granularity == "monthly" and partial_years %}
+<section class="notice notice-warning">
+  <strong>⚠ Cobertura temporal parcial.</strong>
+  {% if partial_years|length == 1 %}El año <strong>{{ partial_years[0] }}</strong> tiene menos de 12 meses observados.{% else %}Los años <strong>{{ partial_years|join(", ") }}</strong> tienen menos de 12 meses observados.{% endif %}
+  No deben compararse directamente con años completos.
+</section>
+{% else %}
+<section class="notice notice-info">
+  <strong>Granularidad de la fuente:</strong> esta fuente se analiza a escala <strong>{{ granularity_label }}</strong> porque {% if granularity == "monthly" %}dispone de información mensual{% else %}no dispone de una columna mensual utilizable{% endif %}.
+</section>
+{% endif %}
+
+<section class="card">
+  <div class="section-head"><div><h2>Evolución {{ granularity_label }} interactiva</h2><p class="muted">Usa zoom, desplazamiento, selección temporal y el menú de herramientas de Plotly.</p></div><span id="selected-detail" class="selection-pill">Haz clic en un punto</span></div>
+  <div id="trend-chart" class="chart chart-tall"></div>
+</section>
+
+<section class="grid two">
+  <div class="card"><div class="section-head"><div><h2>Comparación anual</h2><p class="muted">Los años se comparan a escala anual. La fuente general es anual por diseño.</p></div></div><div id="annual-chart" class="chart"></div></div>
+  <div class="card"><h2>Distribución por sexo</h2><p class="muted">Participación dentro del conjunto filtrado.</p><div id="sex-chart" class="chart chart-small"></div></div>
+</section>
+
+<section class="grid two">
+  <div class="card"><h2>Top 10 localidades</h2><p class="muted">Ordenadas por número de registros. Haz clic para consultar el detalle.</p><div id="locality-chart" class="chart"></div><p id="locality-detail" class="selection-detail">Sin selección.</p></div>
+  <div class="card"><h2>Distribución por grupo de edad</h2><p class="muted">Disponible cuando la fuente contiene grupos de edad.</p><div id="age-chart" class="chart"></div></div>
+</section>
+
+{% if granularity == "monthly" %}
+<section class="card"><div class="section-head"><div><h2>Estacionalidad mensual</h2><p class="muted">Media histórica y variabilidad observada para cada mes.</p></div></div><div id="seasonality-chart" class="chart"></div></section>
+{% endif %}
+
+<section class="card"><div class="section-head"><div><h2>Desviaciones estadísticas</h2><p class="muted">Los puntos destacados se separan del patrón histórico usado como referencia. No son alertas clínicas.</p></div></div><div id="anomaly-chart" class="chart"></div></section>
+
+<section class="card">
+  <div class="section-head"><div><h2>Evaluación predictiva experimental</h2><p class="muted">Comparación fuera de muestra entre un modelo ingenuo y Random Forest.</p></div>{% if models %}<span class="badge">Ganador: {{ models.winner }}</span>{% endif %}</div>
+  {% if models %}
+  <div class="grid three model-kpis">
+    <div class="metric"><small>MAE · Random Forest</small><strong>{{ "%.2f"|format(models.random_forest.mae) }}</strong></div>
+    <div class="metric"><small>RMSE · Random Forest</small><strong>{{ "%.2f"|format(models.random_forest.rmse) }}</strong></div>
+    <div class="metric"><small>Estimación siguiente</small><strong>{{ "%.1f"|format(models.forecast) }}</strong></div>
+  </div>
+  <div id="model-chart" class="chart chart-small"></div>
+  <p class="muted">R² de prueba: {{ "%.2f"|format(models.random_forest.r2) }}. {{ models.interpretation }}</p>
+  {% else %}<p>No hay suficientes observaciones para evaluar los modelos en este subconjunto.</p>{% endif %}
+</section>
+
+<section class="card">
+  <h2>Calidad y cobertura</h2>
+  <div class="grid four metrics">
+    <div class="metric"><small>Registros</small><strong>{{ quality.records }}</strong></div>
+    <div class="metric"><small>Columnas</small><strong>{{ quality.columns }}</strong></div>
+    <div class="metric"><small>Faltantes</small><strong>{{ quality.missing_total }} <small>({{ quality.missing_percent }}%)</small></strong></div>
+    <div class="metric"><small>Localidades</small><strong>{{ quality.localities }}</strong></div>
+  </div>
+  <div class="coverage-grid">
+    <div><strong>Periodo observado</strong><span>{{ quality.year_min }} – {{ quality.year_max }}</span></div>
+    {% if granularity == "monthly" %}
+    <div><strong>Meses observados</strong><span>{{ quality.months_observed }}</span></div>
+    <div><strong>Años completos</strong><span>{{ complete_years|join(", ") if complete_years else "—" }}</span></div>
+    <div><strong>Años parciales</strong><span>{{ partial_years|join(", ") if partial_years else "Ninguno" }}</span></div>
+    {% else %}
+    <div><strong>Granularidad</strong><span>Solo anual</span></div>
+    <div><strong>Años disponibles</strong><span>{{ quality.year_max - quality.year_min + 1 if quality.year_min and quality.year_max else 0 }}</span></div>
+    <div><strong>Completitud mensual</strong><span>No aplica</span></div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="card"><h2>Fuente oficial</h2><p class="muted">Los datos utilizados provienen del portal oficial de datos abiertos de Bogotá.</p><a href="{{ source.url }}" target="_blank" rel="noopener">Consultar ficha del conjunto de datos</a></section>
+
+<script>
+const trend = {{ trend_json|safe }};
+const annual = {{ annual_json|safe }};
+const anomalies = {{ anomaly_json|safe }};
+const seasonality = {{ seasonality_json|safe }};
+const sexRows = {{ sex_json|safe }};
+const localityRows = {{ locality_json|safe }};
+const ageRows = {{ age_json|safe }};
+const isMonthly = {{ "true" if granularity == "monthly" else "false" }};
+
+const plotConfig = {responsive:true, displaylogo:false, scrollZoom:true, modeBarButtonsToRemove:["lasso2d","select2d"]};
+const layoutBase = {paper_bgcolor:"rgba(0,0,0,0)", plot_bgcolor:"rgba(0,0,0,0)", font:{family:"Inter, Segoe UI, Arial, sans-serif"}, margin:{t:24,r:24,b:60,l:64}, hoverlabel:{namelength:-1}};
+const empty = id => { const el=document.getElementById(id); if(el) el.innerHTML='<div class="chart-empty">No hay datos suficientes para mostrar esta visualización.</div>'; };
+const fmt = n => Number(n).toLocaleString("es-CO", {maximumFractionDigits:1});
+
+if (trend.length) {
+  const x = isMonthly ? trend.map(d=>d.date) : trend.map(d=>d.year);
+  const hover = isMonthly ? "%{x|%b %Y}<br>Registros: %{y:,.0f}<extra></extra>" : "Año: %{x}<br>Registros: %{y:,.0f}<extra></extra>";
+  const traces = [{x,y:trend.map(d=>d.value),mode:"lines+markers",name:isMonthly?"Serie mensual":"Serie anual",line:{width:2},marker:{size:6},hovertemplate:hover}];
+  if (isMonthly && trend.length >= 12) {
+    const rolling = trend.map((d,i)=> i<11 ? null : trend.slice(i-11,i+1).reduce((a,r)=>a+Number(r.value),0)/12);
+    traces.push({x,y:rolling,mode:"lines",name:"Media móvil 12 meses",line:{dash:"dash",width:2},hovertemplate:"%{x|%b %Y}<br>Media móvil: %{y:,.1f}<extra></extra>"});
+  }
+  const layout={...layoutBase, hovermode:"x unified", xaxis:{title:isMonthly?"Fecha":"Año",type:isMonthly?"date":"linear",rangeslider:isMonthly?{visible:true,thickness:0.08}:undefined,rangeselector:isMonthly?{buttons:[{count:12,label:"1A",step:"month",stepmode:"backward"},{count:36,label:"3A",step:"month",stepmode:"backward"},{count:60,label:"5A",step:"month",stepmode:"backward"},{step:"all",label:"Todo"}]}:undefined},yaxis:{title:"Registros",rangemode:"tozero"}};
+  Plotly.newPlot("trend-chart",traces,layout,plotConfig);
+  document.getElementById("trend-chart").on("plotly_click", e=>{const p=e.points[0]; document.getElementById("selected-detail").textContent=(isMonthly?new Date(p.x).toLocaleDateString("es-CO",{month:"long",year:"numeric"}):`Año ${p.x}`)+` · ${fmt(p.y)} registros`;});
+} else empty("trend-chart");
+
+if (annual.length) {
+  Plotly.newPlot("annual-chart",[{x:annual.map(d=>d.year),y:annual.map(d=>d.value),type:"bar",name:"Registros",hovertemplate:"Año %{x}<br>Registros: %{y:,.0f}<extra></extra>"}],{...layoutBase,xaxis:{title:"Año",dtick:1},yaxis:{title:"Registros",rangemode:"tozero"}},plotConfig);
+} else empty("annual-chart");
+
+if (sexRows.length) {
+  Plotly.newPlot("sex-chart",[{labels:sexRows.map(d=>d.sex),values:sexRows.map(d=>d.value),type:"pie",hole:.58,textinfo:"percent",hovertemplate:"%{label}<br>Registros: %{value:,.0f}<br>Participación: %{percent}<extra></extra>"}],{...layoutBase,showlegend:true,legend:{orientation:"h",y:-.1}},plotConfig);
+} else empty("sex-chart");
+
+if (localityRows.length) {
+  const rows=[...localityRows].reverse();
+  Plotly.newPlot("locality-chart",[{x:rows.map(d=>d.value),y:rows.map(d=>d.locality),type:"bar",orientation:"h",hovertemplate:"%{y}<br>Registros: %{x:,.0f}<extra></extra>"}],{...layoutBase,xaxis:{title:"Registros"},yaxis:{title:"Localidad",automargin:true}},plotConfig);
+  document.getElementById("locality-chart").on("plotly_click",e=>{const p=e.points[0];document.getElementById("locality-detail").textContent=`${p.y}: ${fmt(p.x)} registros`;});
+} else empty("locality-chart");
+
+if (ageRows.length) {
+  const rows=[...ageRows].reverse();
+  Plotly.newPlot("age-chart",[{x:rows.map(d=>d.value),y:rows.map(d=>d.age_group),type:"bar",orientation:"h",hovertemplate:"%{y}<br>Registros: %{x:,.0f}<extra></extra>"}],{...layoutBase,xaxis:{title:"Registros"},yaxis:{title:"Grupo de edad",automargin:true}},plotConfig);
+} else empty("age-chart");
+
+if (isMonthly && seasonality.length) {
+  Plotly.newPlot("seasonality-chart",[{x:seasonality.map(d=>d.month),y:seasonality.map(d=>d.mean),type:"bar",name:"Media",error_y:{type:"data",array:seasonality.map(d=>Number(d.std)||0),visible:true},hovertemplate:"Mes %{x}<br>Media: %{y:,.1f}<br>Mediana: %{customdata[0]:,.1f}<br>Mín: %{customdata[1]:,.0f}<br>Máx: %{customdata[2]:,.0f}<extra></extra>",customdata:seasonality.map(d=>[d.median,d.min,d.max])}],{...layoutBase,xaxis:{title:"Mes",dtick:1},yaxis:{title:"Registros"}},plotConfig);
+} else if (isMonthly) empty("seasonality-chart");
+
+if (anomalies.length) {
+  const flagged=anomalies.filter(d=>d.anomaly);
+  const x=anomalies.map(d=>isMonthly?d.date:d.year);
+  const hover=isMonthly?"%{x|%b %Y}<br>Registros: %{y:,.0f}<br>z-score: %{customdata:.2f}<extra></extra>":"Año %{x}<br>Registros: %{y:,.0f}<br>z-score: %{customdata:.2f}<extra></extra>";
+  const traces=[{x,y:anomalies.map(d=>d.value),mode:"lines+markers",name:"Serie",customdata:anomalies.map(d=>d.zscore),hovertemplate:hover}];
+  if(flagged.length) traces.push({x:flagged.map(d=>isMonthly?d.date:d.year),y:flagged.map(d=>d.value),mode:"markers",name:"Desviación",marker:{size:12,symbol:"diamond"},customdata:flagged.map(d=>d.zscore),hovertemplate:hover});
+  Plotly.newPlot("anomaly-chart",traces,{...layoutBase,hovermode:"x unified",xaxis:{title:isMonthly?"Fecha":"Año",type:isMonthly?"date":"linear"},yaxis:{title:"Registros"}},plotConfig);
+} else empty("anomaly-chart");
+
+{% if models %}
+const modelRows={{ {"Naive": {"mae": models.baseline.mae, "rmse": models.baseline.rmse}, "Random Forest": {"mae": models.random_forest.mae, "rmse": models.random_forest.rmse}}|tojson }};
+Plotly.newPlot("model-chart",[{x:["Naive","Random Forest"],y:[modelRows.Naive.mae,modelRows["Random Forest"].mae],type:"bar",name:"MAE",hovertemplate:"%{x}<br>MAE: %{y:.2f}<extra></extra>"},{x:["Naive","Random Forest"],y:[modelRows.Naive.rmse,modelRows["Random Forest"].rmse],type:"bar",name:"RMSE",hovertemplate:"%{x}<br>RMSE: %{y:.2f}<extra></extra>"}],{...layoutBase,barmode:"group",xaxis:{title:"Modelo"},yaxis:{title:"Error"}},plotConfig);
+{% endif %}
+</script>
+{% endblock %}

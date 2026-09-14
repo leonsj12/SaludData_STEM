@@ -1,0 +1,3 @@
+{% extends "base.html" %}
+{% block title %}SaludData STEM · Error{% endblock %}
+{% block content %}<section class="card"><h1>No fue posible cargar los datos</h1><p>{{ error }}</p><a class="button" href="{{ url_for('main.index') }}">Volver</a></section>{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio | SaludData STEM{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>SaludData STEM</h1>
+
+    <p>
+        Plataforma de análisis de datos de salud pública de Bogotá D.C.
+    </p>
+
+    <a class="button" href="{{ url_for('main.dashboard') }}">
+        Abrir dashboard
+    </a>
+</section>
+{% endblock %}

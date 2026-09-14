@@ -1,0 +1,7 @@
+Flask>=3.1,<4
+pandas>=2.2,<3
+numpy>=2.0,<3
+scikit-learn>=1.5,<2
+requests>=2.32,<3
+gunicorn>=23,<24
+pytest>=8,<9
