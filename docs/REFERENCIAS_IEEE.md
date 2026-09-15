@@ -1,25 +1,18 @@
-# Referencias verificadas para el proyecto
+# Referencias 
 
-[1] World Health Organization, “Cardiovascular diseases (CVDs),” 31 Jul. 2025.
-
-[2] World Health Organization, “Health effects of air pollution: evidence and implications: technical brief,” 21 Jun. 2026.
-
-[3] Secretaría Distrital de Salud de Bogotá, “Mortalidad en Bogotá D.C.,” Datos Abiertos Bogotá, actualización 30 Jun. 2026.
-
-[4] Secretaría Distrital de Salud de Bogotá, “Mortalidad prematura por enfermedad cardiocerebrovascular en Bogotá D.C. (30 a 70 años),” Datos Abiertos Bogotá.
-
-[5] Secretaría Distrital de Salud de Bogotá, “Mortalidad prematura por enfermedades crónicas respiratorias bajas en Bogotá D.C. (30 a 70 años),” Datos Abiertos Bogotá, actualización 19 May. 2026.
-
-[6] Secretaría Distrital de Ambiente, “PM 2,5 promedio anual. Bogotá D.C.,” Datos Abiertos Bogotá.
-
-[7] F. Pedregosa et al., “Scikit-learn: Machine Learning in Python,” Journal of Machine Learning Research, vol. 12, pp. 2825–2830, 2011.
-
-[8] W. McKinney, Python for Data Analysis, 3rd ed. Sebastopol, CA, USA: O’Reilly Media, 2022.
-
+[1] World Health Organization, “Cardiovascular diseases,” World Health Organization, Geneva, Switzerland, 2025. [En línea]. Disponible en: https://www.who.int/health-topics/cardiovascular-diseases
+[2] M. D. Wilkinson, M. Dumontier, I. J. Aalbersberg, G. Appleton, M. Axton, A. Baak, N. Blomberg, J.-W. Boiten, L. B. da Silva Santos, P. E. Bourne, J. Bouwman, A. J. Brookes, T. Clark, M. Crosas, I. Dillo, O. Dumon, S. Edmunds, A. Evelo, M. R. Finkers, A. Gonzalez-Beltran, A. J. G. Gray, P. Groth, C. Goble, J. Grethe, A. Heringa, P. A. C. ’t Hoen, R. Hooft, J. Kuhn, R. Kok, J. Kok, V. Kovacs, J. Lariviere, P. G. G. Lipton, T. Mons, A. L. Packer, B. Persson, J. Rocca-Serra, J. Roos, R. van Schaik, S.-A. Sansone, G. Schultes, T. Sengstag, N. Slater, D. Strawn, M. Thompson, J. van der Lei, E. van Mulligen,
+J. Velterop, J. Waagmeester, P. Wittenburg, K. Wolstencroft, J. Zhao, B. Mons, and J. Dumontier, “The FAIR Guiding Principles for scientific data management and stewardship,” Scientific Data, vol. 3, Art. no. 160018, 2016, doi: 10.1038/sdata.2016.18.
+[3] Secretaría Distrital de Salud de Bogotá D.C., “Mortalidad en Bogotá D.C.,” Datos Abiertos Bogotá, Bogotá D.C., Colombia, 2026. [En línea]. Disponible en: https://datosabiertos.bogota.gov.co/dataset/mortalidad-en-bogota-d-c
+[4] Secretaría Distrital de Salud de Bogotá D.C., “Mortalidad prematura por enfermedad cardiocerebrovascular en Bogotá D.C. (30 a 70 años),” Datos Abiertos Bogotá, Bogotá D.C., Colombia, 2026. [En línea]. Disponible en: https://datosabiertos.bogota.gov.co/dataset/mortalidad-prematura-por-enfermedad-cardiocerebrovascular-en-bogota
+[5] Secretaría Distrital de Salud de Bogotá D.C., “Mortalidad prematura por enfermedades crónicas respiratorias bajas en Bogotá D.C. (30 a 70 años),” Datos Abiertos Bogotá, Bogotá D.C., Colombia, 2026. [En línea]. Disponible en: https://datosabiertos.bogota.gov.co/dataset/mortalidad-prematura-por-enfermedades-cronicas-en-bogota
+[6] UNESCO, Cracking the Code: Girls’ and Women’s Education in Science, Technology, Engineering and Mathematics (STEM). Paris, France: UNESCO, 2017, doi: 10.54675/QYHK2407.
+[7] G. K. Sandve, A. Nekrutenko, J. Taylor, and E. Hovig, “Ten simple rules for reproducible computational research,” PLoS Computational Biology, vol. 9, no. 10, Art. no. e1003285, 2013, doi: 10.1371/journal.pcbi.1003285.
+[8] M. R. Munafò, B. A. Nosek, D. V. M. Bishop, K. S. Button, C. S. Chambers, N. Percie du Sert, U. Simonsohn, E.-J. Wagenmakers, J. J. Ware, and J. P. A. Ioannidis, “A manifesto for reproducible science,” Nature Human Behaviour, vol. 1, Art. no. 0021, 2017, doi: 10.1038/s41562-016-0021.
 [9] J. W. Tukey, Exploratory Data Analysis. Reading, MA, USA: Addison-Wesley, 1977.
-
-[10] K. Kolasa et al., “Systematic reviews of machine learning in healthcare: a literature review,” Expert Review of Pharmacoeconomics & Outcomes Research, 2023, doi: 10.1080/14737167.2023.2279107.
-
-[11] UNESCO, “Impulsar la igualdad de género en la educación STEM: inspirar a las niñas a seguir carreras científicas,” 9 Feb. 2026.
-
-[12] D. Lvovs, A. L. Creason, S. S. Levine et al., “Balancing ethical data sharing and open science for reproducible research in biomedical data science,” Cell Reports Medicine, vol. 6, no. 4, 2025, Art. no. 102080, doi: 10.1016/j.xcrm.2025.102080.
+[10] L. Breiman, “Random forests,” Machine Learning, vol. 45, pp. 5–32, 2001, doi: 10.1023/A:1010933404324.
+[11] World Health Organization, WHO Global Air Quality Guidelines: Particulate Matter (PM2.5 and PM10), Ozone, Nitrogen Dioxide, Sulfur Dioxide and Carbon Monoxide. Geneva, Switzerland: World Health Organization, 2021, ISBN 978-92-4-003422-8.
+[12] A. Balagopalan, I. Baldini, L. A. Celi, J. Gichoya, L. G. McCoy, T. Naumann, et al., “Machine learning for healthcare that matters: Reorienting from technical novelty to equitable impact,” PLOS Digital Health, vol. 3, no. 4, Art. no. e0000474, 2024, doi: 10.1371/journal.pdig.0000474.
+[13] R. J. Hyndman and G. Athanasopoulos, Forecasting: Principles and Practice, 3rd ed. Melbourne, Australia: OTexts, 2021.
+[14] Scikit-learn Developers, “Time-related feature engineering,” Scikit-learn Documentation. [En línea]. Disponible en: https://scikit-learn.org/
+[15] Secretaría Distrital de Salud de Bogotá D.C., “Tasa Bruta de mortalidad en Bogotá D.C.,” Datos Abiertos Bogotá, Bogotá D.C., Colombia. [En línea]. Disponible en: https://datosabiertos.bogota.gov.co/
