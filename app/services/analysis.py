@@ -131,7 +131,7 @@ def monthly_change(series: pd.Series) -> pd.Series:
 
 def zscore_anomalies(
     series: pd.Series,
-    threshold: float = 2.0,
+    threshold: float = 1.5,
 ) -> pd.DataFrame:
     """
     Identifica observaciones inusuales usando un z-score.
@@ -147,7 +147,7 @@ def zscore_anomalies(
     """
     values = pd.to_numeric(series, errors="coerce")
     mean = values.mean()
-    std = values.std()
+    std = values.std(ddof=0)
 
     result = pd.DataFrame({"valor": values})
 
