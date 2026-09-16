@@ -12,11 +12,6 @@
 Herramienta web desarrollada en Python para consultar, procesar, analizar y visualizar información abierta relacionada con salud pública mediante técnicas de ciencia de datos.
 </p>
 
-<br>
-
-<a href="https://saluddata-stem-4ch5.onrender.com/">Aplicación en línea</a>
-  ·   <a href="https://github.com/leonsj12/SaludData_STEM">Código fuente</a>
-
 <br><br>
 
 [![Estado](https://img.shields.io/badge/Estado-MVP%20funcional-16a34a?style=for-the-badge)](https://saluddata-stem-4ch5.onrender.com/)
