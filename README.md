@@ -426,7 +426,12 @@ Después, la aplicación puede abrirse desde el navegador utilizando la direcci�
 
 La versión desplegada actualmente está disponible en:
 
-**[SaludData STEM — Aplicación en línea](https://saluddata-stem-4ch5.onrender.com/)**
+<p align="center">
+  <a href="https://saluddata-stem-4ch5.onrender.com/" target="_blank">
+    <img src="https://img.shields.io/badge/%20Abrir%20SaludData%20STEM-Aplicación%20en%20línea-6f42c1?style=for-the-badge" alt="Abrir SaludData STEM">
+  </a>
+</p>
+
 
 ## Dashboard
 
@@ -773,11 +778,6 @@ Los datos utilizados pertenecen a sus respectivas fuentes de origen y deben util
 *Datos abiertos · Ciencia de datos · Salud pública · Educación STEM*
 
 <br>
-
-<a href="https://github.com/leonsj12/SaludData_STEM">Repositorio</a>
- ·  <a href="https://saluddata-stem-4ch5.onrender.com/">Aplicación</a>
-
-<br><br>
 
 **Autor:** Leon, S.
 
