@@ -790,6 +790,6 @@ Los datos utilizados pertenecen a sus respectivas fuentes de origen y deben util
 
 <br>
 
-**V2.3**
+**V3**
 
 </div>
