@@ -5,3 +5,4 @@ pyarrow>=15,<22
 requests>=2.31,<3
 plotly>=5.20,<7
 pytest>=8,<9
+gunicorn
