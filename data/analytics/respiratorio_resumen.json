@@ -1,0 +1,227 @@
+{
+  "dataset": "respiratorio",
+  "frecuencia": "mensual",
+  "unidad_analisis": "registros",
+  "filas_fuente": 164840,
+  "columnas_fuente": 14,
+  "calidad": {
+    "filas": 164840,
+    "columnas": 13,
+    "nulos_total": 0,
+    "nulos_por_columna": {
+      "ANO": 0,
+      "MES": 0,
+      "EAPS": 0,
+      "SUBRED": 0,
+      "SEXO": 0,
+      "NACIONALIDAD DE LOS CASOS": 0,
+      "REGIMEN_SEGURIDAD_SOCIAL": 0,
+      "EDAD_FALLECIDO": 0,
+      "EDAD_QUINQUENAL": 0,
+      "CIE10_AGRUPADA": 0,
+      "CIE10_BASICA": 0,
+      "LOCALIDAD": 0,
+      "CLASIFICACION_CRONICAS": 0
+    },
+    "duplicados_exactos": 1974,
+    "porcentaje_duplicados_exactos": 1.1975
+  },
+  "fechas_invalidas": 0,
+  "cobertura_temporal": {
+    "periodos": 196,
+    "primer_periodo": "2010-01",
+    "ultimo_periodo": "2026-04",
+    "meses_esperados": 196,
+    "meses_observados": 196,
+    "meses_ausentes": []
+  },
+  "cobertura_anual": {
+    "meses_observados_por_ano": {
+      "2010": 12,
+      "2011": 12,
+      "2012": 12,
+      "2013": 12,
+      "2014": 12,
+      "2015": 12,
+      "2016": 12,
+      "2017": 12,
+      "2018": 12,
+      "2019": 12,
+      "2020": 12,
+      "2021": 12,
+      "2022": 12,
+      "2023": 12,
+      "2024": 12,
+      "2025": 12,
+      "2026": 4
+    },
+    "advertencia": "Un ano con menos de 12 meses es parcial y no debe compararse directamente con un ano completo sin ajustar la metodologia."
+  },
+  "estadisticas": {
+    "n": 196,
+    "media": 841.0204081632653,
+    "mediana": 837.0,
+    "minimo": 648.0,
+    "maximo": 1310.0,
+    "desviacion_estandar": 86.50465878568286
+  },
+  "anomalias": {
+    "total_anomalias": 9,
+    "anomalias": [
+      {
+        "FECHA": "2014-12-01T00:00:00",
+        "REGISTROS": 902,
+        "Z_SCORE": 2.2806923800091123,
+        "TIPO_ANOMALIA": "por_encima_de_lo_esperado"
+      },
+      {
+        "FECHA": "2017-02-01T00:00:00",
+        "REGISTROS": 704,
+        "Z_SCORE": -2.057456125062947,
+        "TIPO_ANOMALIA": "por_debajo_de_lo_esperado"
+      },
+      {
+        "FECHA": "2018-02-01T00:00:00",
+        "REGISTROS": 734,
+        "Z_SCORE": -2.2028819541719096,
+        "TIPO_ANOMALIA": "por_debajo_de_lo_esperado"
+      },
+      {
+        "FECHA": "2018-05-01T00:00:00",
+        "REGISTROS": 988,
+        "Z_SCORE": 2.124750569352048,
+        "TIPO_ANOMALIA": "por_encima_de_lo_esperado"
+      },
+      {
+        "FECHA": "2019-02-01T00:00:00",
+        "REGISTROS": 692,
+        "Z_SCORE": -2.2204731105787894,
+        "TIPO_ANOMALIA": "por_debajo_de_lo_esperado"
+      },
+      {
+        "FECHA": "2020-06-01T00:00:00",
+        "REGISTROS": 942,
+        "Z_SCORE": 2.232617448069523,
+        "TIPO_ANOMALIA": "por_encima_de_lo_esperado"
+      },
+      {
+        "FECHA": "2020-07-01T00:00:00",
+        "REGISTROS": 1084,
+        "Z_SCORE": 2.811698277872361,
+        "TIPO_ANOMALIA": "por_encima_de_lo_esperado"
+      },
+      {
+        "FECHA": "2021-06-01T00:00:00",
+        "REGISTROS": 1310,
+        "Z_SCORE": 2.3780910680882767,
+        "TIPO_ANOMALIA": "por_encima_de_lo_esperado"
+      },
+      {
+        "FECHA": "2023-02-01T00:00:00",
+        "REGISTROS": 726,
+        "Z_SCORE": -2.325670618106876,
+        "TIPO_ANOMALIA": "por_debajo_de_lo_esperado"
+      }
+    ]
+  },
+  "categorias_principales": {
+    "LOCALIDAD": [
+      {
+        "categoria": "00 - Bogotá",
+        "registros": 82420
+      },
+      {
+        "categoria": "08 - Kennedy",
+        "registros": 10613
+      },
+      {
+        "categoria": "11 - Suba",
+        "registros": 10319
+      },
+      {
+        "categoria": "10 - Engativá",
+        "registros": 8607
+      },
+      {
+        "categoria": "19 - Ciudad Bolívar",
+        "registros": 7122
+      },
+      {
+        "categoria": "07 - Bosa",
+        "registros": 6941
+      },
+      {
+        "categoria": "01 - Usaquén",
+        "registros": 5112
+      },
+      {
+        "categoria": "04 - San Cristóbal",
+        "registros": 5018
+      },
+      {
+        "categoria": "18 - Rafael Uribe Uribe",
+        "registros": 4980
+      },
+      {
+        "categoria": "05 - Usme",
+        "registros": 4138
+      }
+    ],
+    "SEXO": [
+      {
+        "categoria": "Masculino",
+        "registros": 89016
+      },
+      {
+        "categoria": "Femenino",
+        "registros": 75824
+      }
+    ],
+    "CIE10_AGRUPADA": [
+      {
+        "categoria": "Enfermedades Cardiocerebrovasculares",
+        "registros": 74560
+      },
+      {
+        "categoria": "Neoplasias",
+        "registros": 69886
+      },
+      {
+        "categoria": "Diabetes",
+        "registros": 12148
+      },
+      {
+        "categoria": "Enfermedades Crónicas Respiratorias Bajas",
+        "registros": 8024
+      },
+      {
+        "categoria": "Sin Información",
+        "registros": 222
+      }
+    ],
+    "CLASIFICACION_CRONICAS": [
+      {
+        "categoria": "Enfermedades Cerebrovasculares",
+        "registros": 74560
+      },
+      {
+        "categoria": "Neoplasias",
+        "registros": 69886
+      },
+      {
+        "categoria": "Diabetes",
+        "registros": 12148
+      },
+      {
+        "categoria": "Enfermedades Cronicas De Las Vias Respiratorias Inferiores",
+        "registros": 8246
+      }
+    ]
+  },
+  "metodologia": {
+    "serie": "conteo de registros por mes",
+    "anomalias": "Z-score sobre ventana movil de 12 meses",
+    "umbral_z": 2.0,
+    "nota": "Las anomalias son estadisticas y exploratorias. No representan diagnostico clinico."
+  }
+}

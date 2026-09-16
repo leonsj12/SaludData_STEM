@@ -1,0 +1,45 @@
+{
+  "proyecto": "SaludData STEM",
+  "tipo": "analisis exploratorio reproducible",
+  "datasets": {
+    "cardiovascular": {
+      "filas_fuente": 74560,
+      "columnas_fuente": 14,
+      "frecuencia": "mensual",
+      "unidad_analisis": "registros",
+      "anomalias": 7,
+      "cobertura_temporal": {
+        "periodos": 196,
+        "primer_periodo": "2010-01",
+        "ultimo_periodo": "2026-04",
+        "meses_esperados": 196,
+        "meses_observados": 196,
+        "meses_ausentes": []
+      }
+    },
+    "respiratorio": {
+      "filas_fuente": 164840,
+      "columnas_fuente": 14,
+      "frecuencia": "mensual",
+      "unidad_analisis": "registros",
+      "anomalias": 9,
+      "cobertura_temporal": {
+        "periodos": 196,
+        "primer_periodo": "2010-01",
+        "ultimo_periodo": "2026-04",
+        "meses_esperados": 196,
+        "meses_observados": 196,
+        "meses_ausentes": []
+      }
+    },
+    "mortalidad": {
+      "filas_fuente": 274627,
+      "columnas_fuente": 7,
+      "frecuencia": "anual",
+      "unidad_analisis": "muertes",
+      "anomalias": 0
+    }
+  },
+  "estado": "OK",
+  "errores": {}
+}

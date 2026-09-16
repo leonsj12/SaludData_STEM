@@ -1,0 +1,187 @@
+{
+  "dataset": "cardiovascular",
+  "frecuencia": "mensual",
+  "unidad_analisis": "registros",
+  "filas_fuente": 74560,
+  "columnas_fuente": 14,
+  "calidad": {
+    "filas": 74560,
+    "columnas": 13,
+    "nulos_total": 0,
+    "nulos_por_columna": {
+      "ANO": 0,
+      "MES": 0,
+      "EAPS": 0,
+      "SUBRED": 0,
+      "SEXO": 0,
+      "NACIONALIDAD DE LOS CASOS": 0,
+      "REGIMEN_SEGURIDAD_SOCIAL": 0,
+      "EDAD_FALLECIDO": 0,
+      "EDAD_QUINQUENAL": 0,
+      "CIE10_AGRUPADA": 0,
+      "CIE10_BASICA": 0,
+      "LOCALIDAD": 0,
+      "CLASIFICACION_CRONICAS": 0
+    },
+    "duplicados_exactos": 1366,
+    "porcentaje_duplicados_exactos": 1.8321
+  },
+  "fechas_invalidas": 0,
+  "cobertura_temporal": {
+    "periodos": 196,
+    "primer_periodo": "2010-01",
+    "ultimo_periodo": "2026-04",
+    "meses_esperados": 196,
+    "meses_observados": 196,
+    "meses_ausentes": []
+  },
+  "cobertura_anual": {
+    "meses_observados_por_ano": {
+      "2010": 12,
+      "2011": 12,
+      "2012": 12,
+      "2013": 12,
+      "2014": 12,
+      "2015": 12,
+      "2016": 12,
+      "2017": 12,
+      "2018": 12,
+      "2019": 12,
+      "2020": 12,
+      "2021": 12,
+      "2022": 12,
+      "2023": 12,
+      "2024": 12,
+      "2025": 12,
+      "2026": 4
+    },
+    "advertencia": "Un ano con menos de 12 meses es parcial y no debe compararse directamente con un ano completo sin ajustar la metodologia."
+  },
+  "estadisticas": {
+    "n": 196,
+    "media": 380.40816326530614,
+    "mediana": 376.0,
+    "minimo": 280.0,
+    "maximo": 720.0,
+    "desviacion_estandar": 52.0157445069193
+  },
+  "anomalias": {
+    "total_anomalias": 7,
+    "anomalias": [
+      {
+        "FECHA": "2012-12-01T00:00:00",
+        "REGISTROS": 442,
+        "Z_SCORE": 2.279329610419048,
+        "TIPO_ANOMALIA": "por_encima_de_lo_esperado"
+      },
+      {
+        "FECHA": "2019-02-01T00:00:00",
+        "REGISTROS": 280,
+        "Z_SCORE": -2.450090611535436,
+        "TIPO_ANOMALIA": "por_debajo_de_lo_esperado"
+      },
+      {
+        "FECHA": "2020-06-01T00:00:00",
+        "REGISTROS": 426,
+        "Z_SCORE": 2.104804487718248,
+        "TIPO_ANOMALIA": "por_encima_de_lo_esperado"
+      },
+      {
+        "FECHA": "2020-07-01T00:00:00",
+        "REGISTROS": 540,
+        "Z_SCORE": 2.8831304306896475,
+        "TIPO_ANOMALIA": "por_encima_de_lo_esperado"
+      },
+      {
+        "FECHA": "2021-05-01T00:00:00",
+        "REGISTROS": 592,
+        "Z_SCORE": 2.0003503408413636,
+        "TIPO_ANOMALIA": "por_encima_de_lo_esperado"
+      },
+      {
+        "FECHA": "2021-06-01T00:00:00",
+        "REGISTROS": 720,
+        "Z_SCORE": 2.454480398877227,
+        "TIPO_ANOMALIA": "por_encima_de_lo_esperado"
+      },
+      {
+        "FECHA": "2024-07-01T00:00:00",
+        "REGISTROS": 424,
+        "Z_SCORE": 2.0186356451428704,
+        "TIPO_ANOMALIA": "por_encima_de_lo_esperado"
+      }
+    ]
+  },
+  "categorias_principales": {
+    "LOCALIDAD": [
+      {
+        "categoria": "00 - Bogotá",
+        "registros": 37280
+      },
+      {
+        "categoria": "08 - Kennedy",
+        "registros": 4812
+      },
+      {
+        "categoria": "11 - Suba",
+        "registros": 4324
+      },
+      {
+        "categoria": "10 - Engativá",
+        "registros": 3744
+      },
+      {
+        "categoria": "19 - Ciudad Bolívar",
+        "registros": 3397
+      },
+      {
+        "categoria": "07 - Bosa",
+        "registros": 3269
+      },
+      {
+        "categoria": "04 - San Cristóbal",
+        "registros": 2350
+      },
+      {
+        "categoria": "18 - Rafael Uribe Uribe",
+        "registros": 2284
+      },
+      {
+        "categoria": "05 - Usme",
+        "registros": 2075
+      },
+      {
+        "categoria": "01 - Usaquén",
+        "registros": 2015
+      }
+    ],
+    "SEXO": [
+      {
+        "categoria": "Masculino",
+        "registros": 46100
+      },
+      {
+        "categoria": "Femenino",
+        "registros": 28460
+      }
+    ],
+    "CIE10_AGRUPADA": [
+      {
+        "categoria": "Enfermedades Cardiocerebrovasculares",
+        "registros": 74560
+      }
+    ],
+    "CLASIFICACION_CRONICAS": [
+      {
+        "categoria": "Enfermedades Cerebrovasculares",
+        "registros": 74560
+      }
+    ]
+  },
+  "metodologia": {
+    "serie": "conteo de registros por mes",
+    "anomalias": "Z-score sobre ventana movil de 12 meses",
+    "umbral_z": 2.0,
+    "nota": "Las anomalias son estadisticas y exploratorias. No representan diagnostico clinico."
+  }
+}

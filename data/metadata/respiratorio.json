@@ -1,0 +1,28 @@
+{
+  "dataset": "respiratorio",
+  "descripcion": "Mortalidad prematura por enfermedades cronicas respiratorias bajas en Bogota D.C.",
+  "fuente": "Datos Abiertos Bogota",
+  "archivo_original": "mortalidad-prematura-por-enfermedades-cronicas-general.csv",
+  "archivo_raw": "respiratorio.csv",
+  "archivo_processed": "respiratorio.parquet",
+  "fecha_importacion_utc": "2026-09-16T02:39:56.587372+00:00",
+  "filas": 164840,
+  "columnas": 13,
+  "encoding": "cp850",
+  "separador": ";",
+  "columnas_detectadas": [
+    "ANO",
+    "MES",
+    "EAPS",
+    "SUBRED",
+    "SEXO",
+    "NACIONALIDAD DE LOS CASOS",
+    "REGIMEN_SEGURIDAD_SOCIAL",
+    "EDAD_FALLECIDO",
+    "EDAD_QUINQUENAL",
+    "CIE10_AGRUPADA",
+    "CIE10_BASICA",
+    "LOCALIDAD",
+    "CLASIFICACION_CRONICAS"
+  ]
+}

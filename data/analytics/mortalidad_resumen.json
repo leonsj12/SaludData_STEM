@@ -1,0 +1,41 @@
+{
+  "dataset": "mortalidad",
+  "frecuencia": "anual",
+  "unidad_analisis": "muertes",
+  "filas_fuente": 274627,
+  "columnas_fuente": 7,
+  "calidad": {
+    "filas": 274627,
+    "columnas": 7,
+    "nulos_total": 0,
+    "nulos_por_columna": {
+      "ANO": 0,
+      "LOCALIDAD": 0,
+      "SEXO": 0,
+      "GRUPO DE EDAD": 0,
+      "DESCRIPCION LISTA 6/67": 0,
+      "DESCRIPCION LISTA 105": 0,
+      "TOTAL MUERTES": 0
+    },
+    "duplicados_exactos": 0,
+    "porcentaje_duplicados_exactos": 0.0
+  },
+  "estadisticas": {
+    "n": 21,
+    "media": 32793.47619047619,
+    "mediana": 30852.0,
+    "minimo": 26481.0,
+    "maximo": 54233.0,
+    "desviacion_estandar": 6812.993582993071
+  },
+  "anomalias": {
+    "total_anomalias": 0,
+    "anomalias": []
+  },
+  "metodologia": {
+    "serie": "suma anual de TOTAL MUERTES",
+    "anomalias": "Z-score sobre ventana movil de 5 anos",
+    "umbral_z": 2.0,
+    "nota": "Las anomalias son estadisticas y exploratorias. No representan diagnostico clinico."
+  }
+}
