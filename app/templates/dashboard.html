@@ -1,37 +1,37 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 
-{% block title %}Dashboard V2 · SaludData STEM{% endblock %}
+{% block title %}Dashboard V2 Â· SaludData STEM{% endblock %}
 
 {% block content %}
 
 <!--
 ======================================================================
-SALUDDATA STEM · DASHBOARD V2
+SALUDDATA STEM Â· DASHBOARD V2
 ======================================================================
 
 OBJETIVO
 --------
 Esta interfaz permite explorar los resultados producidos por el
-Motor Analítico V1 sin volver a procesar los datos originales.
+Motor AnalÃ­tico V1 sin volver a procesar los datos originales.
 
 ARQUITECTURA
 ------------
-Datos → Procesamiento → Analítica → API → Dashboard
+Datos â†’ Procesamiento â†’ AnalÃ­tica â†’ API â†’ Dashboard
 
-PRINCIPIO METODOLÓGICO
+PRINCIPIO METODOLÃ“GICO
 ----------------------
 Las visualizaciones son descriptivas y exploratorias.
 
 No representan:
-- diagnóstico individual
-- predicción clínica
+- diagnÃ³stico individual
+- predicciÃ³n clÃ­nica
 - causalidad
-- estimación de riesgo individual
+- estimaciÃ³n de riesgo individual
 
 CONCEPTO STEM
 -------------
-La interfaz permite observar cómo la programación puede transformar
-datos abiertos en representaciones útiles para la investigación.
+La interfaz permite observar cÃ³mo la programaciÃ³n puede transformar
+datos abiertos en representaciones Ãºtiles para la investigaciÃ³n.
 
 ======================================================================
 -->
@@ -41,7 +41,7 @@ datos abiertos en representaciones útiles para la investigación.
     <div class="v2-hero-main">
 
         <div class="v2-eyebrow">
-            SALUDDATA STEM · LABORATORIO ANALÍTICO
+            SALUDDATA STEM Â· LABORATORIO ANALÃTICO
         </div>
 
         <h1>
@@ -50,20 +50,20 @@ datos abiertos en representaciones útiles para la investigación.
         </h1>
 
         <p>
-            Plataforma educativa para explorar información de salud
-            pública mediante programación, análisis de datos y
-            visualización reproducible.
+            Plataforma educativa para explorar informaciÃ³n de salud
+            pÃºblica mediante programaciÃ³n, anÃ¡lisis de datos y
+            visualizaciÃ³n reproducible.
         </p>
 
         <div class="v2-process">
 
             <span>DATOS</span>
-            <b>→</b>
+            <b>â†’</b>
             <span>CALIDAD</span>
-            <b>→</b>
-            <span>ANÁLISIS</span>
-            <b>→</b>
-            <span>VISUALIZACIÓN</span>
+            <b>â†’</b>
+            <span>ANÃLISIS</span>
+            <b>â†’</b>
+            <span>VISUALIZACIÃ“N</span>
 
         </div>
 
@@ -73,7 +73,7 @@ datos abiertos en representaciones útiles para la investigación.
 
         <span class="v2-live-dot"></span>
 
-        MOTOR ANALÍTICO
+        MOTOR ANALÃTICO
 
         <strong>V1</strong>
 
@@ -95,7 +95,7 @@ datos abiertos en representaciones útiles para la investigación.
         </span>
 
         <h2>
-            Seleccione una fuente de análisis
+            Seleccione una fuente de anÃ¡lisis
         </h2>
 
     </div>
@@ -135,7 +135,7 @@ datos abiertos en representaciones útiles para la investigación.
 
 
 <!-- ================================================================
-     SALUDDATA STEM · EXPLORADOR V3
+     SALUDDATA STEM Â· EXPLORADOR V3
      ================================================================ -->
 
 <section class="v3-explorer" id="v3-explorer">
@@ -144,7 +144,7 @@ datos abiertos en representaciones útiles para la investigación.
 
         <div>
             <span class="v2-kicker">
-                EXPLORACIÓN INTERACTIVA
+                EXPLORACIÃ“N INTERACTIVA
             </span>
 
             <h2>
@@ -153,13 +153,13 @@ datos abiertos en representaciones útiles para la investigación.
 
             <p>
                 Seleccione criterios para construir una consulta
-                específica sobre la fuente activa.
+                especÃ­fica sobre la fuente activa.
             </p>
         </div>
 
         <style>
 /* ================================================================
-   SALUDDATA STEM · ESTILOS DEL EXPLORADOR V3
+   SALUDDATA STEM Â· ESTILOS DEL EXPLORADOR V3
    ================================================================ */
 
 .v3-explorer {
@@ -481,8 +481,8 @@ main {
 
 /* ================================================================
    FIX RESPONSIVE V3 + V2
-   Evita que los contenedores anidados reduzcan el ancho útil
-   en viewport móvil / zoom del navegador.
+   Evita que los contenedores anidados reduzcan el ancho Ãºtil
+   en viewport mÃ³vil / zoom del navegador.
    ================================================================ */
 
 .v3-explorer {
@@ -676,7 +676,7 @@ main {
 
 
 /* ================================================================
-   AJUSTE FINAL PARA MÓVIL ESTRECHO
+   AJUSTE FINAL PARA MÃ“VIL ESTRECHO
    ================================================================ */
 
 @media (max-width: 620px) {
@@ -720,10 +720,10 @@ main {
     }
 }
 
-</style>
+ .v3-filter-actions { display:flex !important; align-items:center; gap:12px; width:100%; margin-top:28px !important; margin-bottom:18px; padding-top:4px; clear:both; position:relative; z-index:5; } .v3-filter-actions .v3-btn { position:relative; display:inline-flex; align-items:center; justify-content:center; min-height:42px; box-sizing:border-box; flex:0 0 auto; } @media (max-width:620px) { .v3-filter-actions { flex-direction:column; align-items:stretch; gap:10px; margin-top:22px !important; } .v3-filter-actions .v3-btn { width:100%; } } </style>
 
     <div class="v3-filter-grid">
-        <label class="v3-filter"><span>Año</span><select id="filter-year"></select></label>
+        <label class="v3-filter"><span>AÃ±o</span><select id="filter-year"></select></label>
         <label class="v3-filter"><span>Sexo</span><select id="filter-sex"></select></label>
         <label class="v3-filter"><span>Localidad</span><select id="filter-locality"></select></label>
         <label class="v3-filter"><span>Grupo de edad</span><select id="filter-age"></select></label>
@@ -775,7 +775,7 @@ main {
             </span>
 
             <strong id="stat-records">
-                —
+                â€”
             </strong>
 
             <small>
@@ -792,7 +792,7 @@ main {
             </span>
 
             <strong id="stat-periods">
-                —
+                â€”
             </strong>
 
             <small>
@@ -809,11 +809,11 @@ main {
             </span>
 
             <strong id="stat-localities">
-                —
+                â€”
             </strong>
 
             <small>
-                Categorías territoriales
+                CategorÃ­as territoriales
             </small>
 
         </article>
@@ -822,15 +822,15 @@ main {
         <article class="v2-stat">
 
             <span>
-                CATEGORÍAS
+                CATEGORÃAS
             </span>
 
             <strong id="stat-causes">
-                —
+                â€”
             </strong>
 
             <small>
-                Categorías de causa
+                CategorÃ­as de causa
             </small>
 
         </article>
@@ -841,7 +841,7 @@ main {
 
 
 <!-- ================================================================
-     ALERTA METODOLÓGICA
+     ALERTA METODOLÃ“GICA
      ================================================================ -->
 
 <section class="v2-context">
@@ -858,8 +858,8 @@ main {
 
         <p id="context-text">
             Las cifras muestran agregaciones presentes en la fuente.
-            La interpretación debe considerar la definición de cada
-            variable y el periodo de observación.
+            La interpretaciÃ³n debe considerar la definiciÃ³n de cada
+            variable y el periodo de observaciÃ³n.
         </p>
 
     </div>
@@ -878,11 +878,11 @@ main {
         <div>
 
             <span class="v2-kicker">
-                01 · TIEMPO
+                01 Â· TIEMPO
             </span>
 
             <h2>
-                Evolución temporal
+                EvoluciÃ³n temporal
             </h2>
 
         </div>
@@ -906,7 +906,7 @@ main {
 
                 <p>
                     Permite observar cambios en los valores agregados
-                    a través del tiempo.
+                    a travÃ©s del tiempo.
                 </p>
 
             </div>
@@ -938,11 +938,11 @@ main {
         <div>
 
             <span class="v2-kicker">
-                02 · ESTRUCTURA
+                02 Â· ESTRUCTURA
             </span>
 
             <h2>
-                Territorio y distribución
+                Territorio y distribuciÃ³n
             </h2>
 
         </div>
@@ -964,11 +964,11 @@ main {
                 <div>
 
                     <h3>
-                        Distribución territorial
+                        DistribuciÃ³n territorial
                     </h3>
 
                     <p>
-                        Categorías territoriales con mayor valor agregado.
+                        CategorÃ­as territoriales con mayor valor agregado.
                     </p>
 
                 </div>
@@ -999,11 +999,11 @@ main {
                 <div>
 
                     <h3>
-                        Distribución por sexo
+                        DistribuciÃ³n por sexo
                     </h3>
 
                     <p>
-                        Valores agregados según categoría de sexo.
+                        Valores agregados segÃºn categorÃ­a de sexo.
                     </p>
 
                 </div>
@@ -1037,11 +1037,11 @@ main {
         <div>
 
             <span class="v2-kicker">
-                03 · DEMOGRAFÍA
+                03 Â· DEMOGRAFÃA
             </span>
 
             <h2>
-                Edad y categorías
+                Edad y categorÃ­as
             </h2>
 
         </div>
@@ -1067,7 +1067,7 @@ main {
                     </h3>
 
                     <p>
-                        Principales categorías disponibles.
+                        Principales categorÃ­as disponibles.
                     </p>
 
                 </div>
@@ -1093,17 +1093,17 @@ main {
                 <div>
 
                     <h3 id="cause-title">
-                        Causas y categorías
+                        Causas y categorÃ­as
                     </h3>
 
                     <p id="cause-description">
-                        Principales categorías de la fuente.
+                        Principales categorÃ­as de la fuente.
                     </p>
 
                 </div>
 
                 <span class="v2-tag">
-                    CATEGORÍAS
+                    CATEGORÃAS
                 </span>
 
             </div>
@@ -1126,7 +1126,7 @@ main {
 
 
 <!-- ================================================================
-     INTERPRETACIÓN
+     INTERPRETACIÃ“N
      ================================================================ -->
 
 <section class="v2-section">
@@ -1136,11 +1136,11 @@ main {
         <div>
 
             <span class="v2-kicker">
-                04 · INTERPRETACIÓN
+                04 Â· INTERPRETACIÃ“N
             </span>
 
             <h2>
-                ¿Qué podemos observar?
+                Â¿QuÃ© podemos observar?
             </h2>
 
         </div>
@@ -1183,8 +1183,8 @@ main {
             </strong>
 
             <p id="insight-territory">
-                La distribución territorial permite comparar las
-                categorías disponibles en la fuente.
+                La distribuciÃ³n territorial permite comparar las
+                categorÃ­as disponibles en la fuente.
             </p>
 
         </article>
@@ -1197,11 +1197,11 @@ main {
             </span>
 
             <strong>
-                Demografía
+                DemografÃ­a
             </strong>
 
             <p id="insight-demography">
-                Las dimensiones de sexo y edad permiten describir cómo
+                Las dimensiones de sexo y edad permiten describir cÃ³mo
                 se distribuyen los registros agregados.
             </p>
 
@@ -1213,7 +1213,7 @@ main {
 
 
 <!-- ================================================================
-     METODOLOGÍA STEM
+     METODOLOGÃA STEM
      ================================================================ -->
 
 <section class="v2-section">
@@ -1223,7 +1223,7 @@ main {
         <div>
 
             <span class="v2-kicker">
-                05 · STEM
+                05 Â· STEM
             </span>
 
             <h2>
@@ -1272,11 +1272,11 @@ main {
             <span>03</span>
 
             <strong>
-                PROGRAMACIÓN
+                PROGRAMACIÃ“N
             </strong>
 
             <p>
-                Python automatiza procesamiento y transformación.
+                Python automatiza procesamiento y transformaciÃ³n.
             </p>
 
         </article>
@@ -1287,7 +1287,7 @@ main {
             <span>04</span>
 
             <strong>
-                ANÁLISIS
+                ANÃLISIS
             </strong>
 
             <p>
@@ -1302,7 +1302,7 @@ main {
             <span>05</span>
 
             <strong>
-                COMUNICACIÓN
+                COMUNICACIÃ“N
             </strong>
 
             <p>
@@ -1325,19 +1325,19 @@ main {
     <div>
 
         <strong>
-            Sobre las anomalías estadísticas
+            Sobre las anomalÃ­as estadÃ­sticas
         </strong>
 
         <p>
-            Una anomalía es una observación que se separa de un patrón
-            de referencia definido por el método utilizado. En este
+            Una anomalÃ­a es una observaciÃ³n que se separa de un patrÃ³n
+            de referencia definido por el mÃ©todo utilizado. En este
             proyecto se utiliza como mecanismo exploratorio para
-            identificar observaciones que pueden requerir revisión.
+            identificar observaciones que pueden requerir revisiÃ³n.
         </p>
 
         <p>
-            Una anomalía estadística no equivale a una enfermedad,
-            diagnóstico, riesgo individual ni relación causal.
+            Una anomalÃ­a estadÃ­stica no equivale a una enfermedad,
+            diagnÃ³stico, riesgo individual ni relaciÃ³n causal.
         </p>
 
     </div>
@@ -1353,7 +1353,7 @@ main {
 
 /*
 ======================================================================
-CONFIGURACIÓN DE LAS FUENTES
+CONFIGURACIÃ“N DE LAS FUENTES
 ======================================================================
 */
 
@@ -1376,7 +1376,7 @@ const DATASET_CONFIG = {
         title: "Respiratorio",
 
         description:
-            "Mortalidad prematura por enfermedades crónicas respiratorias bajas.",
+            "Mortalidad prematura por enfermedades crÃ³nicas respiratorias bajas.",
 
         color:
             "#FF2DBD"
@@ -1388,7 +1388,7 @@ const DATASET_CONFIG = {
         title: "Mortalidad",
 
         description:
-            "Mortalidad general en Bogotá D.C.",
+            "Mortalidad general en BogotÃ¡ D.C.",
 
         color:
             "#9DFF00"
@@ -1406,7 +1406,7 @@ let activeDataset =
 
 /*
 ======================================================================
-FORMATO NUMÉRICO
+FORMATO NUMÃ‰RICO
 ======================================================================
 */
 
@@ -1418,7 +1418,7 @@ function numero(value) {
         Number.isNaN(Number(value))
     ) {
 
-        return "—";
+        return "â€”";
 
     }
 
@@ -1434,7 +1434,7 @@ function numero(value) {
 
 /*
 ======================================================================
-CONFIGURACIÓN GENERAL DE PLOTLY
+CONFIGURACIÃ“N GENERAL DE PLOTLY
 ======================================================================
 */
 
@@ -1535,7 +1535,7 @@ async function cargarDatos() {
     if (!response.ok) {
 
         throw new Error(
-            "La API respondió con HTTP " +
+            "La API respondiÃ³ con HTTP " +
             response.status
         );
 
@@ -1552,7 +1552,7 @@ async function cargarDatos() {
     ) {
 
         throw new Error(
-            "La API no devolvió una estructura válida."
+            "La API no devolviÃ³ una estructura vÃ¡lida."
         );
 
     }
@@ -1594,7 +1594,7 @@ async function cargarResumen() {
 
 /*
 ======================================================================
-ACTUALIZAR INFORMACIÓN DE LA FUENTE
+ACTUALIZAR INFORMACIÃ“N DE LA FUENTE
 ======================================================================
 */
 
@@ -1753,7 +1753,7 @@ function dibujarTemporal() {
                 ...layoutBase().xaxis,
 
                 title:
-                    "Periodo (año-mes)"
+                    "Periodo (aÃ±o-mes)"
 
             },
 
@@ -1777,8 +1777,8 @@ function dibujarTemporal() {
         "insight-time"
     ).textContent =
         `La fuente seleccionada contiene ${numero(rows.length)}
-        periodos disponibles. La serie permite explorar cómo varía
-        el valor agregado a través del tiempo.`;
+        periodos disponibles. La serie permite explorar cÃ³mo varÃ­a
+        el valor agregado a travÃ©s del tiempo.`;
 
 }
 
@@ -1804,11 +1804,11 @@ function dibujarTerritorio() {
 
 
     /*
-    La categoría "00 - Bogotá" puede representar una agregación
+    La categorÃ­a "00 - BogotÃ¡" puede representar una agregaciÃ³n
     territorial de la fuente.
 
     Se excluye del ranking de localidades para evitar mezclar una
-    categoría agregada con localidades específicas.
+    categorÃ­a agregada con localidades especÃ­ficas.
     */
 
     const aggregate =
@@ -1818,7 +1818,7 @@ function dibujarTerritorio() {
                     row.category
                 ).trim()
                 .toLowerCase()
-                === "00 - bogotá"
+                === "00 - bogotÃ¡"
         );
 
 
@@ -1829,7 +1829,7 @@ function dibujarTerritorio() {
                     row.category
                 ).trim()
                 .toLowerCase()
-                !== "00 - bogotá"
+                !== "00 - bogotÃ¡"
         );
 
 
@@ -1910,12 +1910,12 @@ function dibujarTerritorio() {
 
 
     let note =
-        "Se muestran las principales categorías territoriales.";
+        "Se muestran las principales categorÃ­as territoriales.";
 
     if (aggregate.length > 0) {
 
         note +=
-            ' La categoría "00 - Bogotá" se mantiene fuera del ranking para no mezclar una agregación territorial con localidades específicas.';
+            ' La categorÃ­a "00 - BogotÃ¡" se mantiene fuera del ranking para no mezclar una agregaciÃ³n territorial con localidades especÃ­ficas.';
 
     }
 
@@ -1929,9 +1929,9 @@ function dibujarTerritorio() {
     document.getElementById(
         "insight-territory"
     ).textContent =
-        `El gráfico presenta ${numero(rows.length)}
-        categorías territoriales específicas de la fuente,
-        excluyendo una eventual categoría agregada de Bogotá.`;
+        `El grÃ¡fico presenta ${numero(rows.length)}
+        categorÃ­as territoriales especÃ­ficas de la fuente,
+        excluyendo una eventual categorÃ­a agregada de BogotÃ¡.`;
 
 }
 
@@ -2048,8 +2048,8 @@ function dibujarSexo() {
         "insight-demography"
     ).textContent =
         `La fuente contiene ${numero(rows.length)}
-        categorías de sexo en esta dimensión. La visualización
-        permite observar su distribución dentro del conjunto
+        categorÃ­as de sexo en esta dimensiÃ³n. La visualizaciÃ³n
+        permite observar su distribuciÃ³n dentro del conjunto
         agregado.`;
 
 }
@@ -2208,8 +2208,8 @@ function dibujarCausas() {
 
 
     /*
-    Si la fuente solo tiene una categoría,
-    no forzamos un gráfico innecesario.
+    Si la fuente solo tiene una categorÃ­a,
+    no forzamos un grÃ¡fico innecesario.
     */
 
     if (rows.length <= 1) {
@@ -2219,14 +2219,14 @@ function dibujarCausas() {
             <div class="v2-single-category">
 
                 <span>
-                    CATEGORÍA DISPONIBLE
+                    CATEGORÃA DISPONIBLE
                 </span>
 
                 <strong>
                     ${
                         rows.length
                         ? rows[0].category
-                        : "Sin categorías"
+                        : "Sin categorÃ­as"
                     }
                 </strong>
 
@@ -2234,7 +2234,7 @@ function dibujarCausas() {
                     ${
                         rows.length
                         ? numero(rows[0].value)
-                        : "—"
+                        : "â€”"
                     }
                     registros agregados
                 </small>
@@ -2245,7 +2245,7 @@ function dibujarCausas() {
 
 
         note.textContent =
-            "La fuente contiene una única categoría en esta dimensión; por ello se presenta como información descriptiva.";
+            "La fuente contiene una Ãºnica categorÃ­a en esta dimensiÃ³n; por ello se presenta como informaciÃ³n descriptiva.";
 
         return;
 
@@ -2351,7 +2351,7 @@ function dibujarCausas() {
 
     note.textContent =
         `Se muestran las primeras ${numero(top.length)}
-        categorías disponibles en la analítica.`;
+        categorÃ­as disponibles en la analÃ­tica.`;
 
 }
 
@@ -2438,7 +2438,7 @@ async function iniciar() {
 
 
         console.log(
-            "SaludData STEM · Dashboard V2 cargado."
+            "SaludData STEM Â· Dashboard V2 cargado."
         );
 
     }
@@ -2494,7 +2494,7 @@ document.addEventListener(
 <!-- SALUDDATA_V3_INTEGRATION -->
 
 /* ================================================================
-   SALUDDATA STEM · CAPA DE INTERACCIÓN V3
+   SALUDDATA STEM Â· CAPA DE INTERACCIÃ“N V3
    ================================================================ */
 
 /*
@@ -2502,15 +2502,15 @@ document.addEventListener(
 ESTADO DEL EXPLORADOR
 ======================================================================
 
-¿Qué hace?
+Â¿QuÃ© hace?
 -----------
 Mantiene separado el estado del explorador del estado visual
 original del dashboard.
 
-¿Por qué?
+Â¿Por quÃ©?
 ----------
 Esto permite cambiar de fuente y aplicar filtros sin reconstruir
-los gráficos desde cero.
+los grÃ¡ficos desde cero.
 ======================================================================
 */
 
@@ -2522,7 +2522,7 @@ let explorerData = null;
 OBTENER OPCIONES
 ======================================================================
 
-Consulta las categorías disponibles para la fuente activa.
+Consulta las categorÃ­as disponibles para la fuente activa.
 
 Endpoint:
     /api/explorer/options?dataset=...
@@ -2552,7 +2552,7 @@ async function cargarOpcionesV3() {
     ) {
 
         throw new Error(
-            "La API de opciones devolvió una estructura inválida."
+            "La API de opciones devolviÃ³ una estructura invÃ¡lida."
         );
 
     }
@@ -2567,11 +2567,11 @@ async function cargarOpcionesV3() {
 POBLAR SELECT
 ======================================================================
 
-¿Qué hace?
+Â¿QuÃ© hace?
 -----------
-Carga dinámicamente un <select>.
+Carga dinÃ¡micamente un <select>.
 
-Esto evita escribir manualmente localidades, años, causas o edades.
+Esto evita escribir manualmente localidades, aÃ±os, causas o edades.
 
 ======================================================================
 */
@@ -2632,7 +2632,7 @@ async function prepararFiltrosV3() {
     poblarSelect(
         "filter-year",
         options.years,
-        "Todos los años"
+        "Todos los aÃ±os"
     );
 
 
@@ -2659,7 +2659,7 @@ async function prepararFiltrosV3() {
             "40 a 44", "45 a 49", "50 a 54", "55 a 59",
             "60 a 64", "65 a 69", "70 a 74", "75 a 79",
             "80 a 84", "85 a 89", "90 a 94", "95 a 99",
-            "100 o más"
+            "100 o mÃ¡s"
         ];
 
         edadesV3 = ordenEdades.filter(
@@ -2791,7 +2791,7 @@ function actualizarEstadoFiltrosV3(
 
     const labels = {
 
-        year: "Año",
+        year: "AÃ±o",
         sex: "Sexo",
         locality: "Localidad",
         age_group: "Edad",
@@ -2830,7 +2830,7 @@ function actualizarEstadoFiltrosV3(
                 ([key, value]) =>
                     `${labels[key]}: ${value}`
             )
-            .join(" · ");
+            .join(" Â· ");
 
 
     status.textContent =
@@ -2844,11 +2844,11 @@ function actualizarEstadoFiltrosV3(
 CONSULTAR EXPLORADOR
 ======================================================================
 
-¿Qué hace?
+Â¿QuÃ© hace?
 -----------
-Envía los filtros seleccionados al backend.
+EnvÃ­a los filtros seleccionados al backend.
 
-¿Qué recibe?
+Â¿QuÃ© recibe?
 -------------
 La API devuelve exactamente:
 
@@ -2861,7 +2861,7 @@ La API devuelve exactamente:
     cause
     filters
 
-Por tanto, podemos reutilizar directamente los gráficos V2.
+Por tanto, podemos reutilizar directamente los grÃ¡ficos V2.
 
 ======================================================================
 */
@@ -2915,7 +2915,7 @@ async function ejecutarConsultaV3(
 
             throw new Error(
                 payload.message ||
-                "La API devolvió una respuesta inválida."
+                "La API devolviÃ³ una respuesta invÃ¡lida."
             );
 
         }
@@ -2927,10 +2927,10 @@ async function ejecutarConsultaV3(
 
         /*
         --------------------------------------------------------------
-        CONECTAR V3 CON LOS GRÁFICOS V2
+        CONECTAR V3 CON LOS GRÃFICOS V2
         --------------------------------------------------------------
 
-        Los gráficos existentes esperan:
+        Los grÃ¡ficos existentes esperan:
 
             dashboardData[activeDataset]
 
@@ -3105,7 +3105,7 @@ async function limpiarFiltrosV3() {
 CAMBIO DE DATASET
 ======================================================================
 
-Cada fuente posee sus propias categorías.
+Cada fuente posee sus propias categorÃ­as.
 
 Por ejemplo:
 
@@ -3297,17 +3297,17 @@ document.addEventListener(
 
 /*
 ======================================================================
-SUSTITUIR EL FLUJO DE ACTUALIZACIÓN V2
+SUSTITUIR EL FLUJO DE ACTUALIZACIÃ“N V2
 ======================================================================
 
-La función original actualiza los gráficos utilizando
+La funciÃ³n original actualiza los grÃ¡ficos utilizando
 /api/analytics.
 
 V3 utiliza el explorador.
 
-No eliminamos la función original del archivo:
+No eliminamos la funciÃ³n original del archivo:
 simplemente reemplazamos la referencia utilizada durante esta
-ejecución.
+ejecuciÃ³n.
 
 ======================================================================
 */
@@ -3333,12 +3333,13 @@ actualizarDashboard =
 
 /*
 ======================================================================
-FIN DE INTEGRACIÓN V3
+FIN DE INTEGRACIÃ“N V3
 ======================================================================
 */
 
 </script>
 
 {% endblock %}
+
 
 
