@@ -110,10 +110,12 @@ Entre las fuentes utilizadas se encuentran conjuntos de datos de la **Secretarí
 | Fuente             | Registros procesados | Columnas | Granularidad principal |
 | ------------------ | -------------------: | -------: | ---------------------- |
 | Cardiovascular     |               74.560 |       13 | Mensual                |
-| Respiratorio       |              164.840 |       13 | Mensual                |
+| Enfermedades crónicas       |              164.840 |       13 | Mensual                |
 | Mortalidad general |              274.627 |        7 | Anual                  |
 
-Los conjuntos cardiovascular y respiratorio contienen variables relacionadas con año, mes, sexo, edad, localidad, clasificación de enfermedad y otras dimensiones disponibles en las fuentes originales. El conjunto de mortalidad general contiene información por año, localidad, sexo, grupo de edad, clasificación de causas y total de muertes.
+Los conjuntos cardiovascular y de enfermedades crónicas contienen variables relacionadas con año, mes, sexo, edad, localidad, clasificación de enfermedad y otras dimensiones disponibles en las fuentes originales. El conjunto de mortalidad general contiene información por año, localidad, sexo, grupo de edad, clasificación de causas y total de muertes.
+
+La fuente de enfermedades crónicas conserva las cinco categorías de `CIE10_AGRUPADA`: cardiovasculares (74.560; 45,23 %), neoplasias (69.886; 42,40 %), diabetes (12.148; 7,37 %), enfermedades crónicas respiratorias bajas (8.024; 4,87 %) y sin información (222; 0,13 %). Los porcentajes se calculan sobre 164.840 registros. Esta distribución confirma que el conjunto completo no debe denominarse «respiratorio».
 
 Los datos se organizan en diferentes etapas dentro del proyecto:
 
@@ -144,7 +146,7 @@ La interpretación debe considerar la cobertura temporal, granularidad, estructu
 El dashboard permite seleccionar entre tres fuentes:
 
 * Cardiovascular.
-* Respiratorio.
+* Enfermedades crónicas.
 * Mortalidad general.
 
 La interfaz actual implementa estos tres selectores directamente en el explorador.
@@ -181,7 +183,7 @@ La aplicación permite explorar:
 
 La granularidad temporal depende de cada fuente.
 
-Los conjuntos cardiovascular y respiratorio se procesan mediante series **mensuales**, mientras que la mortalidad general se procesa mediante una serie **anual**. En el procesamiento actual se identifican 196 periodos mensuales para las fuentes cardiovascular y respiratoria y 21 periodos anuales para mortalidad general.
+Los conjuntos cardiovascular y de enfermedades crónicas se procesan mediante series **mensuales** (enero de 2010–abril de 2026, 196 periodos observados en la extracción documentada), mientras que la mortalidad general se procesa mediante una serie **anual** (21 periodos). El año 2026 es parcial y no debe compararse directamente con años completos sin un tratamiento explícito.
 
 ### Visualización interactiva
 
@@ -345,23 +347,23 @@ SaludData_STEM/
 ├── data/
 │   ├── raw/
 │   │   ├── cardiovascular.csv
-│   │   ├── respiratorio.csv
+│   │   ├── enfermedades_cronicas.csv
 │   │   └── mortalidad.csv
 │   │
 │   ├── processed/
 │   │   ├── cardiovascular.parquet
-│   │   ├── respiratorio.parquet
+│   │   ├── enfermedades_cronicas.parquet
 │   │   └── mortalidad.parquet
 │   │
 │   ├── analytics/
 │   │   ├── cardiovascular_monthly.parquet
-│   │   ├── respiratorio_monthly.parquet
+│   │   ├── enfermedades_cronicas_monthly.parquet
 │   │   ├── mortalidad_annual.parquet
 │   │   └── ...
 │   │
 │   └── metadata/
 │       ├── cardiovascular.json
-│       ├── respiratorio.json
+│       ├── enfermedades_cronicas.json
 │       └── mortalidad.json
 │
 ├── scripts/
@@ -441,7 +443,7 @@ Actualmente permite seleccionar:
 
 ```text
 01  Cardiovascular
-02  Respiratorio
+02  Enfermedades crónicas
 03  Mortalidad
 ```
 
@@ -480,7 +482,7 @@ Caracterización inicial de los conjuntos mediante cantidades, distribuciones y 
 La aplicación construye series temporales según la frecuencia disponible:
 
 * **Mensual:** cardiovascular.
-* **Mensual:** respiratorio.
+* **Mensual:** enfermedades crónicas.
 * **Anual:** mortalidad general.
 
 ### Análisis territorial
@@ -505,9 +507,9 @@ Cuando una fuente contiene una única categoría para determinada dimensión, el
 
 El motor analítico incorpora una etapa exploratoria de detección de desviaciones estadísticas.
 
-En los análisis actuales se identificaron, por ejemplo, 5 desviaciones en la serie cardiovascular y 8 en la serie respiratoria durante el procesamiento registrado.
+En los análisis actuales se identificaron, por ejemplo, 7 observaciones señaladas en la serie cardiovascular y 9 en la serie de enfermedades crónicas durante el procesamiento registrado.
 
-Estos resultados deben interpretarse únicamente como indicadores estadísticos exploratorios.
+Estos resultados deben interpretarse únicamente como indicadores estadísticos exploratorios. El resumen conservado utiliza un Z-score con ventana móvil de 12 meses, umbral absoluto de 2 y desviación estándar poblacional; la observación evaluada forma parte de su propia ventana de referencia. Esta decisión reproduce el snapshot, pero puede atenuar o modificar el valor del indicador y debe revisarse antes de utilizarlo como método prospectivo.
 
 ## Criterios metodológicos
 
@@ -527,7 +529,7 @@ Se revisan, entre otros elementos:
 * Estructura de las fuentes.
 * Cambios en los conjuntos publicados.
 
-En el procesamiento registrado, por ejemplo, los conjuntos cardiovascular y respiratorio presentan cero valores nulos, aunque se identifican registros duplicados que deben considerarse durante el análisis.
+En el procesamiento registrado, por ejemplo, los conjuntos cardiovascular y de enfermedades crónicas presentan cero valores nulos, aunque se identifican registros duplicados que deben considerarse durante el análisis.
 
 ### Correspondencia entre método y datos
 
@@ -788,3 +790,23 @@ Los datos utilizados pertenecen a sus respectivas fuentes de origen y deben util
 **V3**
 
 </div>
+
+
+## Decisión metodológica sobre el conjunto de enfermedades crónicas
+
+Durante la auditoría del archivo `mortalidad-prematura-por-enfermedades-cronicas-general.csv` se comprobó que la fuente integra varias categorías de enfermedades. La versión anterior del sistema la denominaba `respiratorio`, lo que podía inducir a interpretar los 164.840 registros como exclusivamente respiratorios. En esta versión el identificador canónico es `enfermedades_cronicas` y la etiqueta visible es **Enfermedades crónicas**. Se preservan todas las filas y categorías originales. La categoría «Enfermedades crónicas respiratorias bajas» continúa disponible como una categoría específica dentro de la fuente, pero no define el conjunto completo.
+
+Los archivos originales y los nombres publicados por la entidad se conservan para trazabilidad. Los artefactos derivados usan el identificador normalizado `enfermedades_cronicas`. Para migrar instalaciones previas puede ejecutarse `python scripts/migrar_dataset_enfermedades_cronicas.py` antes de regenerar la analítica.
+
+
+## Regeneración de resúmenes de auditoría
+
+Después de actualizar o importar los CSV, ejecutar:
+
+```bash
+python scripts/generar_resumenes_auditables.py
+```
+
+El script genera perfiles reproducibles en `data/analytics/*_resumen.json`, con conteos, periodos, nulos, duplicados exactos señalados y desviaciones estadísticas exploratorias. En los conjuntos mensuales, el z-score se calcula con ventana móvil de 12 observaciones que incluye la observación evaluada; por tanto, no es un detector prospectivo ni un sistema de alertas.
+
+La fuente que se presenta internamente como `enfermedades_cronicas` mantiene todas las categorías de `CIE10_AGRUPADA`. El título original del catálogo y el nombre del archivo CSV se conservan en metadatos para trazabilidad.
