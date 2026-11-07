@@ -1,0 +1,895 @@
+[1mdiff --git a/app/templates/dashboard.html b/app/templates/dashboard.html[m
+[1mindex 359446a..bc9d323 100644[m
+[1m--- a/app/templates/dashboard.html[m
+[1m+++ b/app/templates/dashboard.html[m
+[36m@@ -1,37 +1,37 @@[m
+[31m-﻿{% extends "base.html" %}[m
+[32m+[m[32m{% extends "base.html" %}[m
+ [m
+[31m-{% block title %}Dashboard V2 Â· SaludData STEM{% endblock %}[m
+[32m+[m[32m{% block title %}Dashboard V2 · SaludData STEM{% endblock %}[m
+ [m
+ {% block content %}[m
+ [m
+ <!--[m
+ ======================================================================[m
+[31m-SALUDDATA STEM Â· DASHBOARD V2[m
+[32m+[m[32mSALUDDATA STEM · DASHBOARD V2[m
+ ======================================================================[m
+ [m
+ OBJETIVO[m
+ --------[m
+ Esta interfaz permite explorar los resultados producidos por el[m
+[31m-Motor AnalÃ­tico V1 sin volver a procesar los datos originales.[m
+[32m+[m[32mMotor Analítico V1 sin volver a procesar los datos originales.[m
+ [m
+ ARQUITECTURA[m
+ ------------[m
+[31m-Datos â†’ Procesamiento â†’ AnalÃ­tica â†’ API â†’ Dashboard[m
+[32m+[m[32mDatos → Procesamiento → Analítica → API → Dashboard[m
+ [m
+[31m-PRINCIPIO METODOLÃ“GICO[m
+[32m+[m[32mPRINCIPIO METODOLÓGICO[m
+ ----------------------[m
+ Las visualizaciones son descriptivas y exploratorias.[m
+ [m
+ No representan:[m
+[31m-- diagnÃ³stico individual[m
+[31m-- predicciÃ³n clÃ­nica[m
+[32m+[m[32m- diagnóstico individual[m
+[32m+[m[32m- predicción clínica[m
+ - causalidad[m
+[31m-- estimaciÃ³n de riesgo individual[m
+[32m+[m[32m- estimación de riesgo individual[m
+ [m
+ CONCEPTO STEM[m
+ -------------[m
+[31m-La interfaz permite observar cÃ³mo la programaciÃ³n puede transformar[m
+[31m-datos abiertos en representaciones Ãºtiles para la investigaciÃ³n.[m
+[32m+[m[32mLa interfaz permite observar cómo la programación puede transformar[m
+[32m+[m[32mdatos abiertos en representaciones útiles para la investigación.[m
+ [m
+ ======================================================================[m
+ -->[m
+[36m@@ -41,7 +41,7 @@[m [mdatos abiertos en representaciones Ãºtiles para la investigaciÃ³n.[m
+     <div class="v2-hero-main">[m
+ [m
+         <div class="v2-eyebrow">[m
+[31m-            SALUDDATA STEM Â· LABORATORIO ANALÃTICO[m
+[32m+[m[32m            SALUDDATA STEM · LABORATORIO ANALÍTICO[m
+         </div>[m
+ [m
+         <h1>[m
+[36m@@ -50,20 +50,20 @@[m [mdatos abiertos en representaciones Ãºtiles para la investigaciÃ³n.[m
+         </h1>[m
+ [m
+         <p>[m
+[31m-            Plataforma educativa para explorar informaciÃ³n de salud[m
+[31m-            pÃºblica mediante programaciÃ³n, anÃ¡lisis de datos y[m
+[31m-            visualizaciÃ³n reproducible.[m
+[32m+[m[32m            Plataforma educativa para explorar información de salud[m
+[32m+[m[32m            pública mediante programación, análisis de datos y[m
+[32m+[m[32m            visualización reproducible.[m
+         </p>[m
+ [m
+         <div class="v2-process">[m
+ [m
+             <span>DATOS</span>[m
+[31m-            <b>â†’</b>[m
+[32m+[m[32m            <b>→</b>[m
+             <span>CALIDAD</span>[m
+[31m-            <b>â†’</b>[m
+[31m-            <span>ANÃLISIS</span>[m
+[31m-            <b>â†’</b>[m
+[31m-            <span>VISUALIZACIÃ“N</span>[m
+[32m+[m[32m            <b>→</b>[m
+[32m+[m[32m            <span>ANÁLISIS</span>[m
+[32m+[m[32m            <b>→</b>[m
+[32m+[m[32m            <span>VISUALIZACIÓN</span>[m
+ [m
+         </div>[m
+ [m
+[36m@@ -73,7 +73,7 @@[m [mdatos abiertos en representaciones Ãºtiles para la investigaciÃ³n.[m
+ [m
+         <span class="v2-live-dot"></span>[m
+ [m
+[31m-        MOTOR ANALÃTICO[m
+[32m+[m[32m        MOTOR ANALÍTICO[m
+ [m
+         <strong>V1</strong>[m
+ [m
+[36m@@ -95,7 +95,7 @@[m [mdatos abiertos en representaciones Ãºtiles para la investigaciÃ³n.[m
+         </span>[m
+ [m
+         <h2>[m
+[31m-            Seleccione una fuente de anÃ¡lisis[m
+[32m+[m[32m            Seleccione una fuente de análisis[m
+         </h2>[m
+ [m
+     </div>[m
+[36m@@ -135,7 +135,7 @@[m [mdatos abiertos en representaciones Ãºtiles para la investigaciÃ³n.[m
+ [m
+ [m
+ <!-- ================================================================[m
+[31m-     SALUDDATA STEM Â· EXPLORADOR V3[m
+[32m+[m[32m     SALUDDATA STEM · EXPLORADOR V3[m
+      ================================================================ -->[m
+ [m
+ <section class="v3-explorer" id="v3-explorer">[m
+[36m@@ -144,7 +144,7 @@[m [mdatos abiertos en representaciones Ãºtiles para la investigaciÃ³n.[m
+ [m
+         <div>[m
+             <span class="v2-kicker">[m
+[31m-                EXPLORACIÃ“N INTERACTIVA[m
+[32m+[m[32m                EXPLORACIÓN INTERACTIVA[m
+             </span>[m
+ [m
+             <h2>[m
+[36m@@ -153,13 +153,13 @@[m [mdatos abiertos en representaciones Ãºtiles para la investigaciÃ³n.[m
+ [m
+             <p>[m
+                 Seleccione criterios para construir una consulta[m
+[31m-                especÃ­fica sobre la fuente activa.[m
+[32m+[m[32m                específica sobre la fuente activa.[m
+             </p>[m
+         </div>[m
+ [m
+         <style>[m
+ /* ================================================================[m
+[31m-   SALUDDATA STEM Â· ESTILOS DEL EXPLORADOR V3[m
+[32m+[m[32m   SALUDDATA STEM · ESTILOS DEL EXPLORADOR V3[m
+    ================================================================ */[m
+ [m
+ .v3-explorer {[m
+[36m@@ -481,8 +481,8 @@[m [mmain {[m
+ [m
+ /* ================================================================[m
+    FIX RESPONSIVE V3 + V2[m
+[31m-   Evita que los contenedores anidados reduzcan el ancho Ãºtil[m
+[31m-   en viewport mÃ³vil / zoom del navegador.[m
+[32m+[m[32m   Evita que los contenedores anidados reduzcan el ancho útil[m
+[32m+[m[32m   en viewport móvil / zoom del navegador.[m
+    ================================================================ */[m
+ [m
+ .v3-explorer {[m
+[36m@@ -676,7 +676,7 @@[m [mmain {[m
+ [m
+ [m
+ /* ================================================================[m
+[31m-   AJUSTE FINAL PARA MÃ“VIL ESTRECHO[m
+[32m+[m[32m   AJUSTE FINAL PARA MÓVIL ESTRECHO[m
+    ================================================================ */[m
+ [m
+ @media (max-width: 620px) {[m
+[36m@@ -723,7 +723,7 @@[m [mmain {[m
+  .v3-filter-actions { display:flex !important; align-items:center; gap:12px; width:100%; margin-top:28px !important; margin-bottom:18px; padding-top:4px; clear:both; position:relative; z-index:5; } .v3-filter-actions .v3-btn { position:relative; display:inline-flex; align-items:center; justify-content:center; min-height:42px; box-sizing:border-box; flex:0 0 auto; } @media (max-width:620px) { .v3-filter-actions { flex-direction:column; align-items:stretch; gap:10px; margin-top:22px !important; } .v3-filter-actions .v3-btn { width:100%; } } </style>[m
+ [m
+     <div class="v3-filter-grid">[m
+[31m-        <label class="v3-filter"><span>AÃ±o</span><select id="filter-year"></select></label>[m
+[32m+[m[32m        <label class="v3-filter"><span>Año</span><select id="filter-year"></select></label>[m
+         <label class="v3-filter"><span>Sexo</span><select id="filter-sex"></select></label>[m
+         <label class="v3-filter"><span>Localidad</span><select id="filter-locality"></select></label>[m
+         <label class="v3-filter"><span>Grupo de edad</span><select id="filter-age"></select></label>[m
+[36m@@ -775,7 +775,7 @@[m [mmain {[m
+             </span>[m
+ [m
+             <strong id="stat-records">[m
+[31m-                â€”[m
+[32m+[m[32m                —[m
+             </strong>[m
+ [m
+             <small>[m
+[36m@@ -792,7 +792,7 @@[m [mmain {[m
+             </span>[m
+ [m
+             <strong id="stat-periods">[m
+[31m-                â€”[m
+[32m+[m[32m                —[m
+             </strong>[m
+ [m
+             <small>[m
+[36m@@ -809,11 +809,11 @@[m [mmain {[m
+             </span>[m
+ [m
+             <strong id="stat-localities">[m
+[31m-                â€”[m
+[32m+[m[32m                —[m
+             </strong>[m
+ [m
+             <small>[m
+[31m-                CategorÃ­as territoriales[m
+[32m+[m[32m                Categorías territoriales[m
+             </small>[m
+ [m
+         </article>[m
+[36m@@ -822,15 +822,15 @@[m [mmain {[m
+         <article class="v2-stat">[m
+ [m
+             <span>[m
+[31m-                CATEGORÃAS[m
+[32m+[m[32m                CATEGORÍAS[m
+             </span>[m
+ [m
+             <strong id="stat-causes">[m
+[31m-                â€”[m
+[32m+[m[32m                —[m
+             </strong>[m
+ [m
+             <small>[m
+[31m-                CategorÃ­as de causa[m
+[32m+[m[32m                Categorías de causa[m
+             </small>[m
+ [m
+         </article>[m
+[36m@@ -841,7 +841,7 @@[m [mmain {[m
+ [m
+ [m
+ <!-- ================================================================[m
+[31m-     ALERTA METODOLÃ“GICA[m
+[32m+[m[32m     ALERTA METODOLÓGICA[m
+      ================================================================ -->[m
+ [m
+ <section class="v2-context">[m
+[36m@@ -858,8 +858,8 @@[m [mmain {[m
+ [m
+         <p id="context-text">[m
+             Las cifras muestran agregaciones presentes en la fuente.[m
+[31m-            La interpretaciÃ³n debe considerar la definiciÃ³n de cada[m
+[31m-            variable y el periodo de observaciÃ³n.[m
+[32m+[m[32m            La interpretación debe considerar la definición de cada[m
+[32m+[m[32m            variable y el periodo de observación.[m
+         </p>[m
+ [m
+     </div>[m
+[36m@@ -878,11 +878,11 @@[m [mmain {[m
+         <div>[m
+ [m
+             <span class="v2-kicker">[m
+[31m-                01 Â· TIEMPO[m
+[32m+[m[32m                01 · TIEMPO[m
+             </span>[m
+ [m
+             <h2>[m
+[31m-                EvoluciÃ³n temporal[m
+[32m+[m[32m                Evolución temporal[m
+             </h2>[m
+ [m
+         </div>[m
+[36m@@ -906,7 +906,7 @@[m [mmain {[m
+ [m
+                 <p>[m
+                     Permite observar cambios en los valores agregados[m
+[31m-                    a travÃ©s del tiempo.[m
+[32m+[m[32m                    a través del tiempo.[m
+                 </p>[m
+ [m
+             </div>[m
+[36m@@ -938,11 +938,11 @@[m [mmain {[m
+         <div>[m
+ [m
+             <span class="v2-kicker">[m
+[31m-                02 Â· ESTRUCTURA[m
+[32m+[m[32m                02 · ESTRUCTURA[m
+             </span>[m
+ [m
+             <h2>[m
+[31m-                Territorio y distribuciÃ³n[m
+[32m+[m[32m                Territorio y distribución[m
+             </h2>[m
+ [m
+         </div>[m
+[36m@@ -964,11 +964,11 @@[m [mmain {[m
+                 <div>[m
+ [m
+                     <h3>[m
+[31m-                        DistribuciÃ³n territorial[m
+[32m+[m[32m                        Distribución territorial[m
+                     </h3>[m
+ [m
+                     <p>[m
+[31m-                        CategorÃ­as territoriales con mayor valor agregado.[m
+[32m+[m[32m                        Categorías territoriales con mayor valor agregado.[m
+                     </p>[m
+ [m
+                 </div>[m
+[36m@@ -999,11 +999,11 @@[m [mmain {[m
+                 <div>[m
+ [m
+                     <h3>[m
+[31m-                        DistribuciÃ³n por sexo[m
+[32m+[m[32m                        Distribución por sexo[m
+                     </h3>[m
+ [m
+                     <p>[m
+[31m-                        Valores agregados segÃºn categorÃ­a de sexo.[m
+[32m+[m[32m                        Valores agregados según categoría de sexo.[m
+                     </p>[m
+ [m
+                 </div>[m
+[36m@@ -1037,11 +1037,11 @@[m [mmain {[m
+         <div>[m
+ [m
+             <span class="v2-kicker">[m
+[31m-                03 Â· DEMOGRAFÃA[m
+[32m+[m[32m                03 · DEMOGRAFÍA[m
+             </span>[m
+ [m
+             <h2>[m
+[31m-                Edad y categorÃ­as[m
+[32m+[m[32m                Edad y categorías[m
+             </h2>[m
+ [m
+         </div>[m
+[36m@@ -1067,7 +1067,7 @@[m [mmain {[m
+                     </h3>[m
+ [m
+                     <p>[m
+[31m-                        Principales categorÃ­as disponibles.[m
+[32m+[m[32m                        Principales categorías disponibles.[m
+                     </p>[m
+ [m
+                 </div>[m
+[36m@@ -1093,17 +1093,17 @@[m [mmain {[m
+                 <div>[m
+ [m
+                     <h3 id="cause-title">[m
+[31m-                        Causas y categorÃ­as[m
+[32m+[m[32m                        Causas y categorías[m
+                     </h3>[m
+ [m
+                     <p id="cause-description">[m
+[31m-                        Principales categorÃ­as de la fuente.[m
+[32m+[m[32m                        Principales categorías de la fuente.[m
+                     </p>[m
+ [m
+                 </div>[m
+ [m
+                 <span class="v2-tag">[m
+[31m-                    CATEGORÃAS[m
+[32m+[m[32m                    CATEGORÍAS[m
+                 </span>[m
+ [m
+             </div>[m
+[36m@@ -1126,7 +1126,7 @@[m [mmain {[m
+ [m
+ [m
+ <!-- ================================================================[m
+[31m-     INTERPRETACIÃ“N[m
+[32m+[m[32m     INTERPRETACIÓN[m
+      ================================================================ -->[m
+ [m
+ <section class="v2-section">[m
+[36m@@ -1136,11 +1136,11 @@[m [mmain {[m
+         <div>[m
+ [m
+             <span class="v2-kicker">[m
+[31m-                04 Â· INTERPRETACIÃ“N[m
+[32m+[m[32m                04 · INTERPRETACIÓN[m
+             </span>[m
+ [m
+             <h2>[m
+[31m-                Â¿QuÃ© podemos observar?[m
+[32m+[m[32m                ¿Qué podemos observar?[m
+             </h2>[m
+ [m
+         </div>[m
+[36m@@ -1183,8 +1183,8 @@[m [mmain {[m
+             </strong>[m
+ [m
+             <p id="insight-territory">[m
+[31m-                La distribuciÃ³n territorial permite comparar las[m
+[31m-                categorÃ­as disponibles en la fuente.[m
+[32m+[m[32m                La distribución territorial permite comparar las[m
+[32m+[m[32m                categorías disponibles en la fuente.[m
+             </p>[m
+ [m
+         </article>[m
+[36m@@ -1197,11 +1197,11 @@[m [mmain {[m
+             </span>[m
+ [m
+             <strong>[m
+[31m-                DemografÃ­a[m
+[32m+[m[32m                Demografía[m
+             </strong>[m
+ [m
+             <p id="insight-demography">[m
+[31m-                Las dimensiones de sexo y edad permiten describir cÃ³mo[m
+[32m+[m[32m                Las dimensiones de sexo y edad permiten describir cómo[m
+                 se distribuyen los registros agregados.[m
+             </p>[m
+ [m
+[36m@@ -1213,7 +1213,7 @@[m [mmain {[m
+ [m
+ [m
+ <!-- ================================================================[m
+[31m-     METODOLOGÃA STEM[m
+[32m+[m[32m     METODOLOGÍA STEM[m
+      ================================================================ -->[m
+ [m
+ <section class="v2-section">[m
+[36m@@ -1223,7 +1223,7 @@[m [mmain {[m
+         <div>[m
+ [m
+             <span class="v2-kicker">[m
+[31m-                05 Â· STEM[m
+[32m+[m[32m                05 · STEM[m
+             </span>[m
+ [m
+             <h2>[m
+[36m@@ -1272,11 +1272,11 @@[m [mmain {[m
+             <span>03</span>[m
+ [m
+             <strong>[m
+[31m-                PROGRAMACIÃ“N[m
+[32m+[m[32m                PROGRAMACIÓN[m
+             </strong>[m
+ [m
+             <p>[m
+[31m-                Python automatiza procesamiento y transformaciÃ³n.[m
+[32m+[m[32m                Python automatiza procesamiento y transformación.[m
+             </p>[m
+ [m
+         </article>[m
+[36m@@ -1287,7 +1287,7 @@[m [mmain {[m
+             <span>04</span>[m
+ [m
+             <strong>[m
+[31m-                ANÃLISIS[m
+[32m+[m[32m                ANÁLISIS[m
+             </strong>[m
+ [m
+             <p>[m
+[36m@@ -1302,7 +1302,7 @@[m [mmain {[m
+             <span>05</span>[m
+ [m
+             <strong>[m
+[31m-                COMUNICACIÃ“N[m
+[32m+[m[32m                COMUNICACIÓN[m
+             </strong>[m
+ [m
+             <p>[m
+[36m@@ -1325,19 +1325,19 @@[m [mmain {[m
+     <div>[m
+ [m
+         <strong>[m
+[31m-            Sobre las anomalÃ­as estadÃ­sticas[m
+[32m+[m[32m            Sobre las anomalías estadísticas[m
+         </strong>[m
+ [m
+         <p>[m
+[31m-            Una anomalÃ­a es una observaciÃ³n que se separa de un patrÃ³n[m
+[31m-            de referencia definido por el mÃ©todo utilizado. En este[m
+[32m+[m[32m            Una anomalía es una observación que se separa de un patrón[m
+[32m+[m[32m            de referencia definido por el método utilizado. En este[m
+             proyecto se utiliza como mecanismo exploratorio para[m
+[31m-            identificar observaciones que pueden requerir revisiÃ³n.[m
+[32m+[m[32m            identificar observaciones que pueden requerir revisión.[m
+         </p>[m
+ [m
+         <p>[m
+[31m-            Una anomalÃ­a estadÃ­stica no equivale a una enfermedad,[m
+[31m-            diagnÃ³stico, riesgo individual ni relaciÃ³n causal.[m
+[32m+[m[32m            Una anomalía estadística no equivale a una enfermedad,[m
+[32m+[m[32m            diagnóstico, riesgo individual ni relación causal.[m
+         </p>[m
+ [m
+     </div>[m
+[36m@@ -1353,7 +1353,7 @@[m [mmain {[m
+ [m
+ /*[m
+ ======================================================================[m
+[31m-CONFIGURACIÃ“N DE LAS FUENTES[m
+[32m+[m[32mCONFIGURACIÓN DE LAS FUENTES[m
+ ======================================================================[m
+ */[m
+ [m
+[36m@@ -1376,7 +1376,7 @@[m [mconst DATASET_CONFIG = {[m
+         title: "Enfermedades crónicas",[m
+ [m
+         description:[m
+[31m-            "Mortalidad prematura por enfermedades crÃ³nicas respiratorias bajas.",[m
+[32m+[m[32m            "Mortalidad prematura por enfermedades crónicas.",[m
+ [m
+         color:[m
+             "#FF2DBD"[m
+[36m@@ -1388,7 +1388,7 @@[m [mconst DATASET_CONFIG = {[m
+         title: "Mortalidad",[m
+ [m
+         description:[m
+[31m-            "Mortalidad general en BogotÃ¡ D.C.",[m
+[32m+[m[32m            "Mortalidad general en Bogotá D.C.",[m
+ [m
+         color:[m
+             "#9DFF00"[m
+[36m@@ -1406,7 +1406,7 @@[m [mlet activeDataset =[m
+ [m
+ /*[m
+ ======================================================================[m
+[31m-FORMATO NUMÃ‰RICO[m
+[32m+[m[32mFORMATO NUMÉRICO[m
+ ======================================================================[m
+ */[m
+ [m
+[36m@@ -1418,7 +1418,7 @@[m [mfunction numero(value) {[m
+         Number.isNaN(Number(value))[m
+     ) {[m
+ [m
+[31m-        return "â€”";[m
+[32m+[m[32m        return "—";[m
+ [m
+     }[m
+ [m
+[36m@@ -1434,7 +1434,7 @@[m [mfunction numero(value) {[m
+ [m
+ /*[m
+ ======================================================================[m
+[31m-CONFIGURACIÃ“N GENERAL DE PLOTLY[m
+[32m+[m[32mCONFIGURACIÓN GENERAL DE PLOTLY[m
+ ======================================================================[m
+ */[m
+ [m
+[36m@@ -1535,7 +1535,7 @@[m [masync function cargarDatos() {[m
+     if (!response.ok) {[m
+ [m
+         throw new Error([m
+[31m-            "La API respondiÃ³ con HTTP " +[m
+[32m+[m[32m            "La API respondió con HTTP " +[m
+             response.status[m
+         );[m
+ [m
+[36m@@ -1552,7 +1552,7 @@[m [masync function cargarDatos() {[m
+     ) {[m
+ [m
+         throw new Error([m
+[31m-            "La API no devolviÃ³ una estructura vÃ¡lida."[m
+[32m+[m[32m            "La API no devolvió una estructura válida."[m
+         );[m
+ [m
+     }[m
+[36m@@ -1594,7 +1594,7 @@[m [masync function cargarResumen() {[m
+ [m
+ /*[m
+ ======================================================================[m
+[31m-ACTUALIZAR INFORMACIÃ“N DE LA FUENTE[m
+[32m+[m[32mACTUALIZAR INFORMACIÓN DE LA FUENTE[m
+ ======================================================================[m
+ */[m
+ [m
+[36m@@ -1753,7 +1753,7 @@[m [mfunction dibujarTemporal() {[m
+                 ...layoutBase().xaxis,[m
+ [m
+                 title:[m
+[31m-                    "Periodo (aÃ±o-mes)"[m
+[32m+[m[32m                    "Periodo (año-mes)"[m
+ [m
+             },[m
+ [m
+[36m@@ -1777,8 +1777,8 @@[m [mfunction dibujarTemporal() {[m
+         "insight-time"[m
+     ).textContent =[m
+         `La fuente seleccionada contiene ${numero(rows.length)}[m
+[31m-        periodos disponibles. La serie permite explorar cÃ³mo varÃ­a[m
+[31m-        el valor agregado a travÃ©s del tiempo.`;[m
+[32m+[m[32m        periodos disponibles. La serie permite explorar cómo varía[m
+[32m+[m[32m        el valor agregado a través del tiempo.`;[m
+ [m
+ }[m
+ [m
+[36m@@ -1804,11 +1804,11 @@[m [mfunction dibujarTerritorio() {[m
+ [m
+ [m
+     /*[m
+[31m-    La categorÃ­a "00 - BogotÃ¡" puede representar una agregaciÃ³n[m
+[32m+[m[32m    La categoría "00 - Bogotá" puede representar una agregación[m
+     territorial de la fuente.[m
+ [m
+     Se excluye del ranking de localidades para evitar mezclar una[m
+[31m-    categorÃ­a agregada con localidades especÃ­ficas.[m
+[32m+[m[32m    categoría agregada con localidades específicas.[m
+     */[m
+ [m
+     const aggregate =[m
+[36m@@ -1818,7 +1818,7 @@[m [mfunction dibujarTerritorio() {[m
+                     row.category[m
+                 ).trim()[m
+                 .toLowerCase()[m
+[31m-                === "00 - bogotÃ¡"[m
+[32m+[m[32m                === "00 - bogotá"[m
+         );[m
+ [m
+ [m
+[36m@@ -1829,7 +1829,7 @@[m [mfunction dibujarTerritorio() {[m
+                     row.category[m
+                 ).trim()[m
+                 .toLowerCase()[m
+[31m-                !== "00 - bogotÃ¡"[m
+[32m+[m[32m                !== "00 - bogotá"[m
+         );[m
+ [m
+ [m
+[36m@@ -1910,12 +1910,12 @@[m [mfunction dibujarTerritorio() {[m
+ [m
+ [m
+     let note =[m
+[31m-        "Se muestran las principales categorÃ­as territoriales.";[m
+[32m+[m[32m        "Se muestran las principales categorías territoriales.";[m
+ [m
+     if (aggregate.length > 0) {[m
+ [m
+         note +=[m
+[31m-            ' La categorÃ­a "00 - BogotÃ¡" se mantiene fuera del ranking para no mezclar una agregaciÃ³n territorial con localidades especÃ­ficas.';[m
+[32m+[m[32m            ' La categoría "00 - Bogotá" se mantiene fuera del ranking para no mezclar una agregación territorial con localidades específicas.';[m
+ [m
+     }[m
+ [m
+[36m@@ -1929,9 +1929,9 @@[m [mfunction dibujarTerritorio() {[m
+     document.getElementById([m
+         "insight-territory"[m
+     ).textContent =[m
+[31m-        `El grÃ¡fico presenta ${numero(rows.length)}[m
+[31m-        categorÃ­as territoriales especÃ­ficas de la fuente,[m
+[31m-        excluyendo una eventual categorÃ­a agregada de BogotÃ¡.`;[m
+[32m+[m[32m        `El gráfico presenta ${numero(rows.length)}[m
+[32m+[m[32m        categorías territoriales específicas de la fuente,[m
+[32m+[m[32m        excluyendo una eventual categoría agregada de Bogotá.`;[m
+ [m
+ }[m
+ [m
+[36m@@ -2048,8 +2048,8 @@[m [mfunction dibujarSexo() {[m
+         "insight-demography"[m
+     ).textContent =[m
+         `La fuente contiene ${numero(rows.length)}[m
+[31m-        categorÃ­as de sexo en esta dimensiÃ³n. La visualizaciÃ³n[m
+[31m-        permite observar su distribuciÃ³n dentro del conjunto[m
+[32m+[m[32m        categorías de sexo en esta dimensión. La visualización[m
+[32m+[m[32m        permite observar su distribución dentro del conjunto[m
+         agregado.`;[m
+ [m
+ }[m
+[36m@@ -2208,8 +2208,8 @@[m [mfunction dibujarCausas() {[m
+ [m
+ [m
+     /*[m
+[31m-    Si la fuente solo tiene una categorÃ­a,[m
+[31m-    no forzamos un grÃ¡fico innecesario.[m
+[32m+[m[32m    Si la fuente solo tiene una categoría,[m
+[32m+[m[32m    no forzamos un gráfico innecesario.[m
+     */[m
+ [m
+     if (rows.length <= 1) {[m
+[36m@@ -2219,14 +2219,14 @@[m [mfunction dibujarCausas() {[m
+             <div class="v2-single-category">[m
+ [m
+                 <span>[m
+[31m-                    CATEGORÃA DISPONIBLE[m
+[32m+[m[32m                    CATEGORÍA DISPONIBLE[m
+                 </span>[m
+ [m
+                 <strong>[m
+                     ${[m
+                         rows.length[m
+                         ? rows[0].category[m
+[31m-                        : "Sin categorÃ­as"[m
+[32m+[m[32m                        : "Sin categorías"[m
+                     }[m
+                 </strong>[m
+ [m
+[36m@@ -2234,7 +2234,7 @@[m [mfunction dibujarCausas() {[m
+                     ${[m
+                         rows.length[m
+                         ? numero(rows[0].value)[m
+[31m-                        : "â€”"[m
+[32m+[m[32m                        : "—"[m
+                     }[m
+                     registros agregados[m
+                 </small>[m
+[36m@@ -2245,7 +2245,7 @@[m [mfunction dibujarCausas() {[m
+ [m
+ [m
+         note.textContent =[m
+[31m-            "La fuente contiene una Ãºnica categorÃ­a en esta dimensiÃ³n; por ello se presenta como informaciÃ³n descriptiva.";[m
+[32m+[m[32m            "La fuente contiene una única categoría en esta dimensión; por ello se presenta como información descriptiva.";[m
+ [m
+         return;[m
+ [m
+[36m@@ -2351,7 +2351,7 @@[m [mfunction dibujarCausas() {[m
+ [m
+     note.textContent =[m
+         `Se muestran las primeras ${numero(top.length)}[m
+[31m-        categorÃ­as disponibles en la analÃ­tica.`;[m
+[32m+[m[32m        categorías disponibles en la analítica.`;[m
+ [m
+ }[m
+ [m
+[36m@@ -2438,7 +2438,7 @@[m [masync function iniciar() {[m
+ [m
+ [m
+         console.log([m
+[31m-            "SaludData STEM Â· Dashboard V2 cargado."[m
+[32m+[m[32m            "SaludData STEM · Dashboard V2 cargado."[m
+         );[m
+ [m
+     }[m
+[36m@@ -2494,7 +2494,7 @@[m [mdocument.addEventListener([m
+ <!-- SALUDDATA_V3_INTEGRATION -->[m
+ [m
+ /* ================================================================[m
+[31m-   SALUDDATA STEM Â· CAPA DE INTERACCIÃ“N V3[m
+[32m+[m[32m   SALUDDATA STEM · CAPA DE INTERACCIÓN V3[m
+    ================================================================ */[m
+ [m
+ /*[m
+[36m@@ -2502,15 +2502,15 @@[m [mdocument.addEventListener([m
+ ESTADO DEL EXPLORADOR[m
+ ======================================================================[m
+ [m
+[31m-Â¿QuÃ© hace?[m
+[32m+[m[32m¿Qué hace?[m
+ -----------[m
+ Mantiene separado el estado del explorador del estado visual[m
+ original del dashboard.[m
+ [m
+[31m-Â¿Por quÃ©?[m
+[32m+[m[32m¿Por qué?[m
+ ----------[m
+ Esto permite cambiar de fuente y aplicar filtros sin reconstruir[m
+[31m-los grÃ¡ficos desde cero.[m
+[32m+[m[32mlos gráficos desde cero.[m
+ ======================================================================[m
+ */[m
+ [m
+[36m@@ -2522,7 +2522,7 @@[m [mlet explorerData = null;[m
+ OBTENER OPCIONES[m
+ ======================================================================[m
+ [m
+[31m-Consulta las categorÃ­as disponibles para la fuente activa.[m
+[32m+[m[32mConsulta las categorías disponibles para la fuente activa.[m
+ [m
+ Endpoint:[m
+     /api/explorer/options?dataset=...[m
+[36m@@ -2552,7 +2552,7 @@[m [masync function cargarOpcionesV3() {[m
+     ) {[m
+ [m
+         throw new Error([m
+[31m-            "La API de opciones devolviÃ³ una estructura invÃ¡lida."[m
+[32m+[m[32m            "La API de opciones devolvió una estructura inválida."[m
+         );[m
+ [m
+     }[m
+[36m@@ -2567,11 +2567,11 @@[m [masync function cargarOpcionesV3() {[m
+ POBLAR SELECT[m
+ ======================================================================[m
+ [m
+[31m-Â¿QuÃ© hace?[m
+[32m+[m[32m¿Qué hace?[m
+ -----------[m
+[31m-Carga dinÃ¡micamente un <select>.[m
+[32m+[m[32mCarga dinámicamente un <select>.[m
+ [m
+[31m-Esto evita escribir manualmente localidades, aÃ±os, causas o edades.[m
+[32m+[m[32mEsto evita escribir manualmente localidades, años, causas o edades.[m
+ [m
+ ======================================================================[m
+ */[m
+[36m@@ -2632,7 +2632,7 @@[m [masync function prepararFiltrosV3() {[m
+     poblarSelect([m
+         "filter-year",[m
+         options.years,[m
+[31m-        "Todos los aÃ±os"[m
+[32m+[m[32m        "Todos los años"[m
+     );[m
+ [m
+ [m
+[36m@@ -2659,7 +2659,7 @@[m [masync function prepararFiltrosV3() {[m
+             "40 a 44", "45 a 49", "50 a 54", "55 a 59",[m
+             "60 a 64", "65 a 69", "70 a 74", "75 a 79",[m
+             "80 a 84", "85 a 89", "90 a 94", "95 a 99",[m
+[31m-            "100 o mÃ¡s"[m
+[32m+[m[32m            "100 o más"[m
+         ];[m
+ [m
+         edadesV3 = ordenEdades.filter([m
+[36m@@ -2791,7 +2791,7 @@[m [mfunction actualizarEstadoFiltrosV3([m
+ [m
+     const labels = {[m
+ [m
+[31m-        year: "AÃ±o",[m
+[32m+[m[32m        year: "Año",[m
+         sex: "Sexo",[m
+         locality: "Localidad",[m
+         age_group: "Edad",[m
+[36m@@ -2830,7 +2830,7 @@[m [mfunction actualizarEstadoFiltrosV3([m
+                 ([key, value]) =>[m
+                     `${labels[key]}: ${value}`[m
+             )[m
+[31m-            .join(" Â· ");[m
+[32m+[m[32m            .join(" · ");[m
+ [m
+ [m
+     status.textContent =[m
+[36m@@ -2844,11 +2844,11 @@[m [mfunction actualizarEstadoFiltrosV3([m
+ CONSULTAR EXPLORADOR[m
+ ======================================================================[m
+ [m
+[31m-Â¿QuÃ© hace?[m
+[32m+[m[32m¿Qué hace?[m
+ -----------[m
+[31m-EnvÃ­a los filtros seleccionados al backend.[m
+[32m+[m[32mEnvía los filtros seleccionados al backend.[m
+ [m
+[31m-Â¿QuÃ© recibe?[m
+[32m+[m[32m¿Qué recibe?[m
+ -------------[m
+ La API devuelve exactamente:[m
+ [m
+[36m@@ -2861,7 +2861,7 @@[m [mLa API devuelve exactamente:[m
+     cause[m
+     filters[m
+ [m
+[31m-Por tanto, podemos reutilizar directamente los grÃ¡ficos V2.[m
+[32m+[m[32mPor tanto, podemos reutilizar directamente los gráficos V2.[m
+ [m
+ ======================================================================[m
+ */[m
+[36m@@ -2915,7 +2915,7 @@[m [masync function ejecutarConsultaV3([m
+ [m
+             throw new Error([m
+                 payload.message ||[m
+[31m-                "La API devolviÃ³ una respuesta invÃ¡lida."[m
+[32m+[m[32m                "La API devolvió una respuesta inválida."[m
+             );[m
+ [m
+         }[m
+[36m@@ -2927,10 +2927,10 @@[m [masync function ejecutarConsultaV3([m
+ [m
+         /*[m
+         --------------------------------------------------------------[m
+[31m-        CONECTAR V3 CON LOS GRÃFICOS V2[m
+[32m+[m[32m        CONECTAR V3 CON LOS GRÁFICOS V2[m
+         --------------------------------------------------------------[m
+ [m
+[31m-        Los grÃ¡ficos existentes esperan:[m
+[32m+[m[32m        Los gráficos existentes esperan:[m
+ [m
+             dashboardData[activeDataset][m
+ [m
+[36m@@ -3105,7 +3105,7 @@[m [masync function limpiarFiltrosV3() {[m
+ CAMBIO DE DATASET[m
+ ======================================================================[m
+ [m
+[31m-Cada fuente posee sus propias categorÃ­as.[m
+[32m+[m[32mCada fuente posee sus propias categorías.[m
+ [m
+ Por ejemplo:[m
+ [m
+[36m@@ -3297,17 +3297,17 @@[m [mdocument.addEventListener([m
+ [m
+ /*[m
+ ======================================================================[m
+[31m-SUSTITUIR EL FLUJO DE ACTUALIZACIÃ“N V2[m
+[32m+[m[32mSUSTITUIR EL FLUJO DE ACTUALIZACIÓN V2[m
+ ======================================================================[m
+ [m
+[31m-La funciÃ³n original actualiza los grÃ¡ficos utilizando[m
+[32m+[m[32mLa función original actualiza los gráficos utilizando[m
+ /api/analytics.[m
+ [m
+ V3 utiliza el explorador.[m
+ [m
+[31m-No eliminamos la funciÃ³n original del archivo:[m
+[32m+[m[32mNo eliminamos la función original del archivo:[m
+ simplemente reemplazamos la referencia utilizada durante esta[m
+[31m-ejecuciÃ³n.[m
+[32m+[m[32mejecución.[m
+ [m
+ ======================================================================[m
+ */[m
+[36m@@ -3333,7 +3333,7 @@[m [mactualizarDashboard =[m
+ [m
+ /*[m
+ ======================================================================[m
+[31m-FIN DE INTEGRACIÃ“N V3[m
+[32m+[m[32mFIN DE INTEGRACIÓN V3[m
+ ======================================================================[m
+ */[m
+ [m
