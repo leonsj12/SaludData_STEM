@@ -1,0 +1,65 @@
+{
+  "dataset": "enfermedades_cronicas",
+  "nombre_visible": "Enfermedades crónicas",
+  "descripcion": "Conjunto descargable de mortalidad prematura con múltiples categorías de enfermedades crónicas; etiqueta interna del proyecto basada en el contenido tabular.",
+  "fuente": "Datos Abiertos Bogotá",
+  "archivo_original": "mortalidad-prematura-por-enfermedades-cronicas-general.csv",
+  "archivo_raw": "enfermedades_cronicas.csv",
+  "archivo_processed": "enfermedades_cronicas.parquet",
+  "fecha_importacion_utc": "2026-09-16T02:39:56.587372+00:00",
+  "filas": 164840,
+  "columnas": 13,
+  "encoding": "cp850",
+  "separador": ";",
+  "columnas_detectadas": [
+    "ANO",
+    "MES",
+    "EAPS",
+    "SUBRED",
+    "SEXO",
+    "NACIONALIDAD DE LOS CASOS",
+    "REGIMEN_SEGURIDAD_SOCIAL",
+    "EDAD_FALLECIDO",
+    "EDAD_QUINQUENAL",
+    "CIE10_AGRUPADA",
+    "CIE10_BASICA",
+    "LOCALIDAD",
+    "CLASIFICACION_CRONICAS"
+  ],
+  "unidad_analisis": "registros agregados según las categorías de la fuente; no asumir una persona única por fila",
+  "frecuencia": "mensual",
+  "cobertura_temporal": {
+    "periodos": 196,
+    "primer_periodo": "2010-01",
+    "ultimo_periodo": "2026-04",
+    "nota": "El último año (2026) contiene únicamente cuatro meses observados en esta extracción."
+  },
+  "calidad": {
+    "valores_faltantes_total": 0,
+    "duplicados_exactos_detectados": 1974,
+    "duplicados_eliminados": 0,
+    "nota_duplicados": "Los duplicados se informan, pero no se eliminan automáticamente; su tratamiento requiere una regla documentada y validación contra la fuente."
+  },
+  "columna_categorica_principal": "CIE10_AGRUPADA",
+  "categorias_CIE10_AGRUPADA": {
+    "Enfermedades Cardiocerebrovasculares": 74560,
+    "Neoplasias": 69886,
+    "Diabetes": 12148,
+    "Enfermedades Crónicas Respiratorias Bajas": 8024,
+    "Sin Información": 222
+  },
+  "porcentaje_categorias_CIE10_AGRUPADA": {
+    "Enfermedades Cardiocerebrovasculares": 45.2317,
+    "Neoplasias": 42.3963,
+    "Diabetes": 7.3696,
+    "Enfermedades Crónicas Respiratorias Bajas": 4.8678,
+    "Sin Información": 0.1347
+  },
+  "decision_metodologica": "Se conserva el conjunto completo y todas las categorías. El nombre interno Enfermedades crónicas refleja su composición tabular, mientras que el título original del catálogo se preserva como metadato de procedencia.",
+  "identificador_interno": "enfermedades_cronicas",
+  "titulo_catalogo_original": "Mortalidad prematura por enfermedades crónicas respiratorias bajas en Bogotá D.C. (30 a 70 años)",
+  "pagina_catalogo_original": "https://datosabiertos.bogota.gov.co/dataset/mortalidad-prematura-por-enfermedades-cronicas-en-bogota",
+  "recurso_original": "https://datosabiertos.bogota.gov.co/dataset/9fc1f14b-540b-4adc-93b1-ecd22780d6d2/resource/f33d3941-9030-4899-9420-42ef8757607b/download/mortalidad-prematura-por-enfermedades-cronicas-general.csv",
+  "rango_edad_catalogo": "30 a 70 años",
+  "nota_discrepancia_catalogo_contenido": "La ficha del catálogo identifica la fuente como mortalidad prematura por enfermedades crónicas respiratorias bajas, mientras que el archivo descargable contiene múltiples categorías en CIE10_AGRUPADA: cardiovasculares, neoplasias, diabetes, respiratorias bajas y sin información. Para preservar la totalidad de los registros y reflejar el contenido tabular, el proyecto usa la etiqueta interna Enfermedades crónicas. Se conserva el título oficial original para trazabilidad."
+}

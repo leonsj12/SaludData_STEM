@@ -1,0 +1,26 @@
+{
+  "project": "SaludData STEM",
+  "datasets": {
+    "cardiovascular": {
+      "rows": 74560,
+      "columns": 13,
+      "frequency": "monthly",
+      "periods": 196,
+      "anomalies": 7
+    },
+    "enfermedades_cronicas": {
+      "rows": 164840,
+      "columns": 13,
+      "frequency": "monthly",
+      "periods": 196,
+      "anomalies": 9
+    },
+    "mortalidad": {
+      "rows": 274627,
+      "columns": 7,
+      "frequency": "annual",
+      "periods": 21,
+      "anomalies": 0
+    }
+  }
+}

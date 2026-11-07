@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}SaludData STEM{% endblock %}</title>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <div class="brand">SALUDDATA STEM</div>
+      <div class="tagline">ANALIZA · APRENDE · AUTOMATIZA</div>
+    </div>
+    <nav>
+      <a href="/">Inicio</a>
+      <a href="/dashboard">Dashboard</a>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <span>Proyecto educativo de programación y ciencia de datos</span>
+    <span>Datos abiertos · Bogotá</span>
+  </footer>
+</body>
+</html>
